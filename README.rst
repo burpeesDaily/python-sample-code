@@ -1,6 +1,6 @@
-#############################
-An Example Project for Sphinx
-#############################
+###########################################
+An Python Coding Sample for Shun's Vineyard
+###########################################
 
 The **Binary Trees** library is an example to demonstrate how to use `Sphinx`_ to generate beautiful documents.
 .. _Sphinx: https://www.sphinx-doc.org/

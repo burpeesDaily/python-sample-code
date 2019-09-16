@@ -15,8 +15,6 @@ The **Binary Trees** library has the following dependencies:
 Installation
 ============
 
-- From Github
-
 To download the Binary Trees library from Github, do::
-    $ git clone https://github.com/shunsvineyard/python-sample-code.git
 
+    $ git clone https://github.com/shunsvineyard/python-sample-code.git

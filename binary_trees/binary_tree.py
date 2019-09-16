@@ -4,11 +4,11 @@
 
 """A base class for binary trees."""
 
-from typing import Any, Generic, NoReturn, Optional, TypeVar
-
 import abc
 import dataclasses
 import functools
+
+from typing import Any, Generic, NoReturn, Optional, TypeVar
 
 
 @functools.total_ordering
@@ -64,7 +64,9 @@ class BinaryTree(abc.ABC):
     delete(key: `KeyType`)
         Delete data by its key from a binary treeW.
 
-    Note: One reason to use abstract base class for all types of binary trees
+    Notes
+    -----
+    One reason to use abstract base class for all types of binary trees
     is to make sure the type of binary trees is compatable. Therefore, binary
     tree traversal can be performed on any type of binary trees.
     """

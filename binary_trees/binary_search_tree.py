@@ -375,7 +375,7 @@ class BinarySearchTree(binary_tree.BinaryTree):
             current.data = candidate.data
 
             # If the min node on the right sub-tree is the replacement of the
-            # deleting node, the candidate's right pointer needs to be copied. 
+            # deleting node, the candidate's right pointer needs to be copied.
             if current.right == candidate:
                 current.right = candidate.right
 

@@ -1,0 +1,8 @@
+mypy
+pep8
+pydocstyle
+pytest
+Sphinx
+
+# Install the following packages in development mode
+-e .

@@ -26,5 +26,10 @@ setuptools.setup(
     ],
     keywords="sphinx",
     packages=setuptools.find_packages(),
+    entry_points={
+        "console_scripts": [
+            "sample-cli=binary_trees.bin.cli:main"
+        ]
+    },
     python_requires=">=3.7"
 )

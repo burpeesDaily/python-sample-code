@@ -1,3 +1,9 @@
+# Copyright © 2020 by Shun Huang. All rights reserved.
+# Licensed under MIT License.
+# See LICENSE in the project root for license information.
+
+"""A simple CLI application."""
+
 import cmd
 
 from binary_trees import binary_search_tree
@@ -6,20 +12,14 @@ from binary_trees import tree_exceptions
 
 
 class cli(cmd.Cmd):
+    """A CLI for operating the binary search tree."""
+
     intro = "Welcome to the simple CLI. Type help or ? to list commands.\n"
     prompt = "cli> "
 
     def __init__(self):
         cmd.Cmd.__init__(self)
         self._tree = binary_search_tree.BinarySearchTree()
-
-    def _get_key(self, line):
-        key = line.split()
-
-        if key[0].isdigit() is False:
-            raise KeyError("The key must be an integer")
-        else:
-            return int(key[0])
 
     def do_search(self, line):
         """Search data by a given key.
@@ -97,6 +97,14 @@ class cli(cmd.Cmd):
         """Exit the application."""
         print("Bye")
         raise SystemExit()
+
+    def _get_key(self, line):
+        key = line.split()
+
+        if key[0].isdigit() is False:
+            raise KeyError("The key must be an integer")
+        else:
+            return int(key[0])
 
 
 if __name__ == "__main__":

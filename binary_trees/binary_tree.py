@@ -36,7 +36,7 @@ class Comparable(abc.ABC):
         return self < other or self == other
 
     def __ge__(self, other) -> bool:
-        return (not self < other)
+        return not self < other
 
 
 KeyType = TypeVar("KeyType", bound=Comparable)

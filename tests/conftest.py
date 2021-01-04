@@ -1,5 +1,6 @@
 import pytest
 
+
 @pytest.fixture
 def basic_tree():
     return [
@@ -13,5 +14,5 @@ def basic_tree():
         (24, "24"),
         (22, "22"),
         (15, "15"),
-        (1, "1")
+        (1, "1"),
     ]

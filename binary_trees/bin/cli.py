@@ -24,11 +24,12 @@ class cli(cmd.Cmd):
     def do_search(self, line):
         """Search data by a given key.
 
-        Example:
+        Examples
+        --------
         cli> search 3
         """
+        key = self._get_key(line=line)
         try:
-            key = self._get_key(line=line)
             output = self._tree.search(key=key)
             print(output.key, output.data)
         except tree_exceptions.KeyNotFoundError:
@@ -39,15 +40,16 @@ class cli(cmd.Cmd):
     def do_insert(self, line):
         """Insert a (key, data) pair. The key must be an integer.
 
-        Example:
+        Examples
+        --------
         cli> insert 7 data
         """
         args = line.split()
         if len(args) != 2:
             print("Invalid number of the arguments")
         else:
+            key = self._get_key(line)
             try:
-                key = self._get_key(line)
                 self._tree.insert(key=key, data=args[1])
                 print(f"{args[0]} and {args[1]} inserted")
             except tree_exceptions.DuplicateKeyError:
@@ -58,11 +60,12 @@ class cli(cmd.Cmd):
     def do_delete(self, line):
         """Delete an item by the given key.
 
-        Example:
+        Examples
+        --------
         cli> delete 5
         """
+        key = self._get_key(line=line)
         try:
-            key = self._get_key(line=line)
             self._tree.delete(key=key)
             print(f"{key} removed")
         except tree_exceptions.KeyNotFoundError:

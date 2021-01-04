@@ -172,7 +172,7 @@ class BinarySearchTree(binary_tree.BinaryTree):
                     parent.left = None
                 else:
                     parent.right = None
-            del(current)
+            del current
 
         # Two children
         elif current.left and current.right:
@@ -190,7 +190,7 @@ class BinarySearchTree(binary_tree.BinaryTree):
                 current.right = candidate.right
 
             # Delete the candidate
-            del(candidate)
+            del candidate
 
         # One child
         else:
@@ -216,7 +216,7 @@ class BinarySearchTree(binary_tree.BinaryTree):
             else:
                 raise RuntimeError("Fatal error")
 
-            del(current)
+            del current
 
     def _delete_helper(self, node: binary_tree.Node) -> binary_tree.Node:
         """Find the minimum node, return it, and update its parent's left.

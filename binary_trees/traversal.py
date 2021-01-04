@@ -21,8 +21,9 @@ from typing import List, Optional
 from binary_trees import binary_tree
 
 
-def inorder_traverse(tree: binary_tree.BinaryTree,
-                     recursive: bool = True) -> binary_tree.Pairs:
+def inorder_traverse(
+    tree: binary_tree.BinaryTree, recursive: bool = True
+) -> binary_tree.Pairs:
     """Perform In-Order traversal.
 
     In-order traversal traverses a tree by the order:
@@ -66,8 +67,9 @@ def inorder_traverse(tree: binary_tree.BinaryTree,
     return _inorder_traverse_non_recursive(root=tree.root)
 
 
-def preorder_traverse(tree: binary_tree.BinaryTree,
-                      recursive: bool = True) -> binary_tree.Pairs:
+def preorder_traverse(
+    tree: binary_tree.BinaryTree, recursive: bool = True
+) -> binary_tree.Pairs:
     """Perform Pre-Order traversal.
 
     Pre-order traversal traverses a tree by the order:
@@ -111,8 +113,9 @@ def preorder_traverse(tree: binary_tree.BinaryTree,
     return _preorder_traverse_non_recursive(root=tree.root)
 
 
-def postorder_traverse(tree: binary_tree.BinaryTree,
-                       recursive: bool = True) -> binary_tree.Pairs:
+def postorder_traverse(
+    tree: binary_tree.BinaryTree, recursive: bool = True
+) -> binary_tree.Pairs:
     """Perform Post-Order traversal.
 
     Post-order traversal traverses a tree by the order:
@@ -156,7 +159,9 @@ def postorder_traverse(tree: binary_tree.BinaryTree,
     return _postorder_traverse_non_recursive(root=tree.root)
 
 
-def levelorder_traverse(tree:  binary_tree.BinaryTree,) -> binary_tree.Pairs:
+def levelorder_traverse(
+    tree: binary_tree.BinaryTree,
+) -> binary_tree.Pairs:
     """Perform Level-Order traversal.
 
     Level-order traversal traverses a tree:
@@ -205,8 +210,7 @@ def levelorder_traverse(tree:  binary_tree.BinaryTree,) -> binary_tree.Pairs:
                 queue.append(temp.right)
 
 
-def _inorder_traverse(
-        node: Optional[binary_tree.Node]) -> binary_tree.Pairs:
+def _inorder_traverse(node: Optional[binary_tree.Node]) -> binary_tree.Pairs:
     if node:
         yield from _inorder_traverse(node.left)
         yield (node.key, node.data)
@@ -214,7 +218,8 @@ def _inorder_traverse(
 
 
 def _inorder_traverse_non_recursive(
-        root: Optional[binary_tree.Node]) -> binary_tree.Pairs:
+    root: Optional[binary_tree.Node],
+) -> binary_tree.Pairs:
     if root is None:
         raise StopIteration
 
@@ -260,8 +265,7 @@ def _inorder_traverse_non_recursive(
                 break
 
 
-def _preorder_traverse(
-        node: Optional[binary_tree.Node]) -> binary_tree.Pairs:
+def _preorder_traverse(node: Optional[binary_tree.Node]) -> binary_tree.Pairs:
     if node:
         yield (node.key, node.data)
         yield from _preorder_traverse(node.left)
@@ -269,7 +273,8 @@ def _preorder_traverse(
 
 
 def _preorder_traverse_non_recursive(
-        root: Optional[binary_tree.Node]) -> binary_tree.Pairs:
+    root: Optional[binary_tree.Node],
+) -> binary_tree.Pairs:
     if root is None:
         raise StopIteration
 
@@ -287,8 +292,7 @@ def _preorder_traverse_non_recursive(
             stack.append(temp.left)
 
 
-def _postorder_traverse(
-        node: Optional[binary_tree.Node]) -> binary_tree.Pairs:
+def _postorder_traverse(node: Optional[binary_tree.Node]) -> binary_tree.Pairs:
     if node:
         yield from _postorder_traverse(node.left)
         yield from _postorder_traverse(node.right)
@@ -296,7 +300,8 @@ def _postorder_traverse(
 
 
 def _postorder_traverse_non_recursive(
-        root: Optional[binary_tree.Node]) -> binary_tree.Pairs:
+    root: Optional[binary_tree.Node],
+) -> binary_tree.Pairs:
     if root is None:
         raise StopIteration
 

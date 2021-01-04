@@ -2,6 +2,10 @@
 A Python Coding Sample for Shun's Vineyard
 ###########################################
 
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/psf/black
+
+
 The **Binary Trees** library is an example to demonstrate how to use `Sphinx <https://www.sphinx-doc.org/>`_ to generate documents. Although this is just an example code, the sample code follows  `numpydoc docstring guide <https://numpydoc.readthedocs.io/en/latest/format.html>`_ and `My Python Coding Style and Principles <https://shunsvineyard.info/2019/01/05/my-python-coding-style-and-principles/>`_.
 
 

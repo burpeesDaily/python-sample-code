@@ -2,9 +2,9 @@
 # Licensed under MIT License.
 # See LICENSE in the project root for license information.
 
-"""Entry point for the CLI application."""
+"""Entry point for the Forest CLI application."""
 
-from binary_trees.bin import cli
+from pyforest.bin import forest_cli
 
 if __name__ == "__main__":
-    cli.cli().cmdloop()
+    forest_cli.cli().cmdloop()

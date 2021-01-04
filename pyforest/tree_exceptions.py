@@ -2,7 +2,14 @@
 # Licensed under MIT License.
 # See LICENSE in the project root for license information.
 
-"""Binary Tree Exception Definitions."""
+"""Tree Exception Definitions."""
+
+
+class EmptyTreeError(Exception):
+    """Raised when a tree is empty."""
+
+    def __init__(self):
+        Exception.__init__(self, "The tree is empty.")
 
 
 class DuplicateKeyError(Exception):

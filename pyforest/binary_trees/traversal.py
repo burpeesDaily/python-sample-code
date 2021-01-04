@@ -16,14 +16,23 @@ postorder_traverse(tree: SupportedTreeType, recursive: `bool`)
     Perform post-order traversal.
 """
 
-from typing import List, Optional
+from typing import Union
 
-from binary_trees import binary_tree
+from pyforest.binary_trees import avl_tree
+from pyforest.binary_trees import binary_search_tree
+from pyforest.binary_trees import binary_tree
 
 
-def inorder_traverse(
-    tree: binary_tree.BinaryTree, recursive: bool = True
-) -> binary_tree.Pairs:
+# Alias for the node types.
+SupportedNodeType = Union[None, binary_tree.Node, avl_tree.AVLNode]
+
+# Alias for the supported types of binary trees.
+SupportedTreeType = Union[avl_tree.AVLTree,
+                          binary_search_tree.BinarySearchTree]
+
+
+def inorder_traverse(tree: SupportedTreeType,
+                     recursive: bool = True) -> binary_tree.Pairs:
     """Perform In-Order traversal.
 
     In-order traversal traverses a tree by the order:
@@ -67,9 +76,8 @@ def inorder_traverse(
     return _inorder_traverse_non_recursive(root=tree.root)
 
 
-def preorder_traverse(
-    tree: binary_tree.BinaryTree, recursive: bool = True
-) -> binary_tree.Pairs:
+def preorder_traverse(tree: SupportedTreeType,
+                      recursive: bool = True) -> binary_tree.Pairs:
     """Perform Pre-Order traversal.
 
     Pre-order traversal traverses a tree by the order:
@@ -113,9 +121,8 @@ def preorder_traverse(
     return _preorder_traverse_non_recursive(root=tree.root)
 
 
-def postorder_traverse(
-    tree: binary_tree.BinaryTree, recursive: bool = True
-) -> binary_tree.Pairs:
+def postorder_traverse(tree: SupportedTreeType,
+                       recursive: bool = True) -> binary_tree.Pairs:
     """Perform Post-Order traversal.
 
     Post-order traversal traverses a tree by the order:
@@ -159,9 +166,52 @@ def postorder_traverse(
     return _postorder_traverse_non_recursive(root=tree.root)
 
 
-def levelorder_traverse(
-    tree: binary_tree.BinaryTree,
-) -> binary_tree.Pairs:
+def reverse_inorder_traverse(tree: SupportedTreeType,
+                             recursive: bool = True) -> binary_tree.Pairs:
+    """Perform reversed In-Order traversal.
+
+    Reversed in-order traversal traverses a tree by the order:
+    right subtree, current node, left subtree (RNL)
+
+    Parameters
+    ----------
+    tree : `SupportedTreeType`
+        A type of binary tree.
+    recursive: `bool`
+        Perform traversal recursively or not.
+
+    Yields
+    ------
+    `Pairs`
+        The next (key, data) pair in the reversed in-order traversal.
+
+    Examples
+    --------
+    >>> from pyforest.binary_trees import binary_search_tree
+    >>> from pyforest.binary_trees import traversal
+    >>> tree = binary_search_tree.BinarySearchTree()
+    >>> tree.insert(key=23, data="23")
+    >>> tree.insert(key=4, data="4")
+    >>> tree.insert(key=30, data="30")
+    >>> tree.insert(key=11, data="11")
+    >>> tree.insert(key=7, data="7")
+    >>> tree.insert(key=34, data="34")
+    >>> tree.insert(key=20, data="20")
+    >>> tree.insert(key=24, data="24")
+    >>> tree.insert(key=22, data="22")
+    >>> tree.insert(key=15, data="15")
+    >>> tree.insert(key=1, data="1")
+    >>> [item for item in traversal.reverse_inorder_traverse(tree)]
+    [(34, '34'), (30, '30'), (24, '24'), (23, '23'), (22, '22'), (20, '20'),
+     (15, '15'), (11, '11'), (7, '7'), (4, '4'), (1, '1')]
+    """
+    if recursive:
+        return _reverse_inorder_traverse(node=tree.root)
+
+    return _reverse_inorder_traverse_non_recursive(root=tree.root)
+
+
+def levelorder_traverse(tree: SupportedTreeType) -> binary_tree.Pairs:
     """Perform Level-Order traversal.
 
     Level-order traversal traverses a tree:
@@ -210,7 +260,7 @@ def levelorder_traverse(
                 queue.append(temp.right)
 
 
-def _inorder_traverse(node: Optional[binary_tree.Node]) -> binary_tree.Pairs:
+def _inorder_traverse(node: SupportedNodeType) -> binary_tree.Pairs:
     if node:
         yield from _inorder_traverse(node.left)
         yield (node.key, node.data)
@@ -218,8 +268,7 @@ def _inorder_traverse(node: Optional[binary_tree.Node]) -> binary_tree.Pairs:
 
 
 def _inorder_traverse_non_recursive(
-    root: Optional[binary_tree.Node],
-) -> binary_tree.Pairs:
+        root: SupportedNodeType) -> binary_tree.Pairs:
     if root is None:
         raise StopIteration
 
@@ -265,7 +314,61 @@ def _inorder_traverse_non_recursive(
                 break
 
 
-def _preorder_traverse(node: Optional[binary_tree.Node]) -> binary_tree.Pairs:
+def _reverse_inorder_traverse(node: SupportedNodeType) -> binary_tree.Pairs:
+    if node:
+        yield from _reverse_inorder_traverse(node.right)
+        yield (node.key, node.data)
+        yield from _reverse_inorder_traverse(node.left)
+
+
+def _reverse_inorder_traverse_non_recursive(
+        root: SupportedNodeType) -> binary_tree.Pairs:
+    if root is None:
+        raise StopIteration
+
+    stack = []
+    if root.left:
+        stack.append(root.left)
+        stack.append(root)
+
+    current = root.right
+
+    while True:
+
+        if current:
+            if current.left:
+                stack.append(current.left)
+                stack.append(current)
+                current = current.right
+                continue
+            stack.append(current)
+            current = None
+
+        else:  # current is None
+
+            if len(stack) > 0:
+                current = stack.pop()
+
+                if current.left is None:
+                    yield (current.key, current.data)
+                    current = None
+                    continue
+                else:  # current.right is not None
+                    if len(stack) > 0:
+                        if current.left == stack[-1]:
+                            yield (current.key, current.data)
+                            current = None
+                            continue
+                        else:  # current.right != stack[-1]:
+                            # This case means there are more nodes on the right
+                            # Keep the current and go back to add them.
+                            continue
+
+            else:  # stack is empty
+                break
+
+
+def _preorder_traverse(node: SupportedNodeType) -> binary_tree.Pairs:
     if node:
         yield (node.key, node.data)
         yield from _preorder_traverse(node.left)
@@ -273,12 +376,11 @@ def _preorder_traverse(node: Optional[binary_tree.Node]) -> binary_tree.Pairs:
 
 
 def _preorder_traverse_non_recursive(
-    root: Optional[binary_tree.Node],
-) -> binary_tree.Pairs:
+        root: SupportedNodeType) -> binary_tree.Pairs:
     if root is None:
         raise StopIteration
 
-    stack: List[binary_tree.Node] = [root]
+    stack = [root]
 
     while len(stack) > 0:
         temp = stack.pop()
@@ -292,7 +394,7 @@ def _preorder_traverse_non_recursive(
             stack.append(temp.left)
 
 
-def _postorder_traverse(node: Optional[binary_tree.Node]) -> binary_tree.Pairs:
+def _postorder_traverse(node: SupportedNodeType) -> binary_tree.Pairs:
     if node:
         yield from _postorder_traverse(node.left)
         yield from _postorder_traverse(node.right)
@@ -300,8 +402,7 @@ def _postorder_traverse(node: Optional[binary_tree.Node]) -> binary_tree.Pairs:
 
 
 def _postorder_traverse_non_recursive(
-    root: Optional[binary_tree.Node],
-) -> binary_tree.Pairs:
+        root: SupportedNodeType) -> binary_tree.Pairs:
     if root is None:
         raise StopIteration
 

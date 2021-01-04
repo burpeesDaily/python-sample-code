@@ -1,0 +1,221 @@
+
+
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyforest.bin package &#8212; Sample Project 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pyforest.binary_trees package" href="pyforest.binary_trees.html" />
+    <link rel="prev" title="pyforest package" href="pyforest.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyforest.binary_trees.html" title="pyforest.binary_trees package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyforest.html" title="pyforest package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Sample Project 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >pyforest</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="pyforest.html" accesskey="U">pyforest package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pyforest.bin package</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pyforest-bin-package">
+<h1>pyforest.bin package<a class="headerlink" href="#pyforest-bin-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pyforest.bin.forest_cli">
+<span id="pyforest-bin-forest-cli-module"></span><h2>pyforest.bin.forest_cli module<a class="headerlink" href="#module-pyforest.bin.forest_cli" title="Permalink to this headline">¶</a></h2>
+<p>A simple CLI application.</p>
+<dl class="py class">
+<dt id="pyforest.bin.forest_cli.cli">
+<em class="property">class </em><code class="sig-prename descclassname">pyforest.bin.forest_cli.</code><code class="sig-name descname">cli</code><a class="headerlink" href="#pyforest.bin.forest_cli.cli" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">cmd.Cmd</span></code></p>
+<p>A CLI for operating the Forest.</p>
+<dl class="py method">
+<dt id="pyforest.bin.forest_cli.cli.do_build">
+<code class="sig-name descname">do_build</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyforest.bin.forest_cli.cli.do_build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a binary tree.</p>
+<p>Options: avl-tree, bst, rb-tree, threaded-bst
+Example:
+forest&gt; build avl-tree</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyforest.bin.forest_cli.cli.do_delete">
+<code class="sig-name descname">do_delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyforest.bin.forest_cli.cli.do_delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete an item by the given key.</p>
+<p>Example:
+forest&gt; delete 5</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyforest.bin.forest_cli.cli.do_destroy">
+<code class="sig-name descname">do_destroy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyforest.bin.forest_cli.cli.do_destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy the existing tree.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyforest.bin.forest_cli.cli.do_detail">
+<code class="sig-name descname">do_detail</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyforest.bin.forest_cli.cli.do_detail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the detail of the tree.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyforest.bin.forest_cli.cli.do_exit">
+<code class="sig-name descname">do_exit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyforest.bin.forest_cli.cli.do_exit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exit the application.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyforest.bin.forest_cli.cli.do_insert">
+<code class="sig-name descname">do_insert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyforest.bin.forest_cli.cli.do_insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a (key, data) pair. The key must be an integer.</p>
+<p>Example:
+forest&gt; insert 7 data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyforest.bin.forest_cli.cli.do_search">
+<code class="sig-name descname">do_search</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyforest.bin.forest_cli.cli.do_search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search data by a given key.</p>
+<p>Example:
+forest&gt; search 3</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyforest.bin.forest_cli.cli.do_traverse">
+<code class="sig-name descname">do_traverse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyforest.bin.forest_cli.cli.do_traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverse the binary search tree.</p>
+<p>Options: pre, in, post, rev-in
+Example:
+forest&gt; traverse pre</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="pyforest.bin.forest_cli.cli.intro">
+<code class="sig-name descname">intro</code><em class="property"> = 'Welcome to the Forest CLI. Type help or ? to list commands.\n'</em><a class="headerlink" href="#pyforest.bin.forest_cli.cli.intro" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="pyforest.bin.forest_cli.cli.prompt">
+<code class="sig-name descname">prompt</code><em class="property"> = 'forest&gt; '</em><a class="headerlink" href="#pyforest.bin.forest_cli.cli.prompt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyforest.bin.forest_cli.main">
+<code class="sig-prename descclassname">pyforest.bin.forest_cli.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyforest.bin.forest_cli.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Entry point for the Forest CLI.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyforest.bin">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pyforest.bin" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">pyforest.bin package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-pyforest.bin.forest_cli">pyforest.bin.forest_cli module</a></li>
+<li><a class="reference internal" href="#module-pyforest.bin">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyforest.html"
+                        title="previous chapter">pyforest package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pyforest.binary_trees.html"
+                        title="next chapter">pyforest.binary_trees package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyforest.bin.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyforest.binary_trees.html" title="pyforest.binary_trees package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyforest.html" title="pyforest package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Sample Project 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >pyforest</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="pyforest.html" >pyforest package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pyforest.bin package</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Author.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.1.
+    </div>
+  </body>
+</html>

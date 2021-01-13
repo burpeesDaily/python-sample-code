@@ -18,7 +18,7 @@ setuptools.setup(
     long_description_content_type="text/x-rst",
     url="https://github.com/shunsvineyard/sphinx-example",
     author="Shun Huang",
-    author_email="shunsvineyard@protonmail.com",
+    author_email="zsh@shunsvineyard.info",
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
@@ -28,7 +28,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     entry_points={
         "console_scripts": [
-            "sample-cli=binary_trees.bin.cli:main"
+            "sample-cli=trees.bin.tree_cli:main"
         ]
     },
     python_requires=">=3.7"

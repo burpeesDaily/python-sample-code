@@ -2,10 +2,10 @@
 
 import pytest
 
-from pyforest import tree_exceptions
+from trees import tree_exceptions
 
-from pyforest.binary_trees import binary_search_tree
-from pyforest.binary_trees import traversal
+from trees.binary_trees import binary_search_tree
+from trees.binary_trees import traversal
 
 
 def test_simple_case(basic_tree):

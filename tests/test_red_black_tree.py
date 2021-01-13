@@ -2,9 +2,9 @@
 
 import pytest
 
-from pyforest import tree_exceptions
+from trees import tree_exceptions
 
-from pyforest.binary_trees import red_black_tree
+from trees.binary_trees import red_black_tree
 
 
 def test_simple_case(basic_tree):

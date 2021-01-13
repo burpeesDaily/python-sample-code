@@ -1,14 +1,13 @@
-###########################################
-A Python Coding Sample for Shun's Vineyard
-###########################################
+Sample Binary Tree Library
+##########################
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
 
 
-The **Forest Project** is an example to demonstrate how to use `Sphinx <https://www.sphinx-doc.org/>`_ to generate documents.
+The **Binary Tree Library** is a Python sample project used by shunsvineyard.info. It is an example of `Sphinx <https://www.sphinx-doc.org/>`_ and `My Python Coding Style <https://shunsvineyard.info/2019/01/05/my-python-coding-style-and-principles/>`_.
 
-The Forest Project is a tree data structure library and has the following tree data structures:
+Although it is a sample project, the **Binary Tree Library** is a usable tree data structure library and has the following tree data structures:
 
 - Binary Trees
     - AVL Tree
@@ -16,7 +15,7 @@ The Forest Project is a tree data structure library and has the following tree d
     - Red Black Tree
     - Threaded Binary Trees
 
-The Forest also provides the tree traversal feature to traverse binary trees and generic trees.
+The library also provides the tree traversal feature to traverse binary trees.
 
 - Binary Tree Traversal
     - In-order
@@ -26,13 +25,13 @@ The Forest also provides the tree traversal feature to traverse binary trees and
     - Level-order
 
 Requirements
-============
+------------
 
-The Forest Project requires Python 3.7 or newer.
-The key Python 3.7 feature used in the Forest Project is `dataclass <https://docs.python.org/3/library/dataclasses.html#module-dataclasses>`_.
+The **Binary Tree Library** requires Python 3.7 or newer.
+The key Python 3.7 feature used in the project is `dataclass <https://docs.python.org/3/library/dataclasses.html#module-dataclasses>`_.
 
 Installation
-============
+------------
 
 Install from Github
 
@@ -43,12 +42,12 @@ Install from Github
     pip install .
 
 Examples
-========
+--------
 
 .. code-block:: python
 
-    from pyforest.binary_trees import red_black_tree
-    from pyforest.binary_trees import traversal
+    from trees.binary_trees import red_black_tree
+    from trees.binary_trees import traversal
 
 
     class Map:
@@ -93,23 +92,23 @@ Examples
             print("john does not exist")
 
 
-Forest CLI
-==========
+Tree CLI
+--------
 
-The Forest Project provides a command line tool to simulate tree data structures.
+The **Binary Tree Library** provides a command line tool to simulate tree data structures.
 
 .. code-block:: text
 
-    forest-cli
+    tree-cli
 
 It will show the interactive prompt. Use ``help`` to list all the available commands
 
 
 .. code-block:: text
 
-    Welcome to the Forest CLI. Type help or ? to list commands.
+    Welcome to the Tree CLI. Type help or ? to list commands.
 
-    forest> help
+    tree> help
 
     Documented commands (type help <topic>):
     ========================================

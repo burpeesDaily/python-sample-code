@@ -1,8 +1,8 @@
 """Unit tests for the traversal module."""
 
-from pyforest.binary_trees import avl_tree
-from pyforest.binary_trees import binary_search_tree
-from pyforest.binary_trees import traversal
+from trees.binary_trees import avl_tree
+from trees.binary_trees import binary_search_tree
+from trees.binary_trees import traversal
 
 
 def test_binary_search_tree_traversal(basic_tree):

@@ -1,7 +1,7 @@
-pyforest
-========
+trees
+=====
 
 .. toctree::
    :maxdepth: 4
 
-   pyforest
+   trees

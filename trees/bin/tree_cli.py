@@ -32,7 +32,9 @@ class cli(cmd.Cmd):
         """Build a binary tree.
 
         Options: avl-tree, bst, rb-tree, threaded-bst
-        Example:
+
+        Example
+        -------
         tree> build avl-tree
         """
         try:
@@ -69,7 +71,8 @@ class cli(cmd.Cmd):
     def do_search(self, line):
         """Search data by a given key.
 
-        Example:
+        Example
+        -------
         tree> search 3
         """
         try:
@@ -84,7 +87,8 @@ class cli(cmd.Cmd):
     def do_insert(self, line):
         """Insert a (key, data) pair. The key must be an integer.
 
-        Example:
+        Example
+        -------
         tree> insert 7 data
         """
         args = line.split()
@@ -104,7 +108,8 @@ class cli(cmd.Cmd):
     def do_delete(self, line):
         """Delete an item by the given key.
 
-        Example:
+        Example
+        -------
         tree> delete 5
         """
         try:
@@ -120,7 +125,9 @@ class cli(cmd.Cmd):
         """Traverse the binary search tree.
 
         Options: pre, in, post, rev-in
-        Example:
+
+        Example
+        -------
         tree> traverse pre
         """
         try:
@@ -208,16 +215,18 @@ class cli(cmd.Cmd):
         arg = line.split()
         if len(arg) > 1:
             raise KeyError("Too many arguments")
-        else:
-            return arg
+        return arg[0]
 
     def _get_key(self, line):
-        key = self._get_single_arg(line=line)
+        arg = line.split()
 
-        if key[0].isdigit() is False:
+        if len(arg) == 0:
+            raise KeyError("No arguments")
+
+        if arg[0].isdigit() is False:
             raise KeyError("The key must be an integer")
         else:
-            return int(key[0])
+            return int(arg[0])
 
 
 def main():

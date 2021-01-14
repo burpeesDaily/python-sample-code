@@ -1,7 +1,11 @@
+"""Test data for unit tests."""
+
 import pytest
+
 
 @pytest.fixture
 def basic_tree():
+    """Return the basic test tree data."""
     return [
         (23, "23"),
         (4, "4"),
@@ -13,5 +17,5 @@ def basic_tree():
         (24, "24"),
         (22, "22"),
         (15, "15"),
-        (1, "1")
+        (1, "1"),
     ]

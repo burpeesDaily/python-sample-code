@@ -1,0 +1,9 @@
+mypy
+pydocstyle
+pytest
+black
+flake8
+Sphinx
+
+# Install the following packages in development mode
+-e .

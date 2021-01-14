@@ -15,14 +15,15 @@ import sys
 sys.path.insert(0, os.path.abspath('../..'))
 
 
+
 # -- Project information -----------------------------------------------------
 
 project = 'Sample Project'
-copyright = '2019, Shun Huang'
-author = 'Shun Huang'
+copyright = '2021, Author'
+author = 'Author'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.0'
+release = '0.0.1'
 
 
 # -- General configuration ---------------------------------------------------

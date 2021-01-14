@@ -5,15 +5,14 @@ Sample Binary Tree Library
     :target: https://github.com/psf/black
 
 
-The **Binary Tree Library** is a Python sample project used by shunsvineyard.info. It is an example of `Sphinx <https://www.sphinx-doc.org/>`_ and `My Python Coding Style <https://shunsvineyard.info/2019/01/05/my-python-coding-style-and-principles/>`_.
+The **Binary Tree Library** is a Python sample project used by shunsvineyard.info. It is an example for `Sphinx <https://www.sphinx-doc.org/>`_ and `My Python Coding Style <https://shunsvineyard.info/2019/01/05/my-python-coding-style-and-principles/>`_.
 
-Although it is a sample project, the **Binary Tree Library** is a usable tree data structure library and has the following tree data structures:
+Although it is a sample project, the **Binary Tree Library** is a usable tree data structure library, and has the following tree data structures:
 
-- Binary Trees
-    - AVL Tree
-    - Binary Search Tree
-    - Red Black Tree
-    - Threaded Binary Trees
+- AVL Tree
+- Binary Search Tree
+- Red Black Tree
+- Threaded Binary Trees
 
 The library also provides the tree traversal feature to traverse binary trees.
 
@@ -46,6 +45,7 @@ Examples
 
 .. code-block:: python
 
+    from trees import tree_exceptions
     from trees.binary_trees import red_black_tree
     from trees.binary_trees import traversal
 
@@ -88,7 +88,7 @@ Examples
         # Check the deleted item.
         try:
             print(contacts["john"])
-        except KeyError:
+        except tree_exceptions.KeyNotFoundError:
             print("john does not exist")
 
 

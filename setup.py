@@ -11,12 +11,12 @@ README = (HERE / "README.rst").read_text()
 
 # This call to setup() does all the work
 setuptools.setup(
-    name="sphinx-example",
-    version="0.1.1",
-    description="An example for Sphinx",
+    name="python-sample-code",
+    version="0.2.0",
+    description="The Python sample project is a Binary Tree Library",
     long_description=README,
     long_description_content_type="text/x-rst",
-    url="https://github.com/shunsvineyard/sphinx-example",
+    url="https://github.com/shunsvineyard/python-sample-code",
     author="Shun Huang",
     author_email="zsh@shunsvineyard.info",
     license="MIT",
@@ -28,7 +28,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     entry_points={
         "console_scripts": [
-            "sample-cli=trees.bin.tree_cli:main"
+            "tree-cli=trees.bin.tree_cli:main"
         ]
     },
     python_requires=">=3.7"

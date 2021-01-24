@@ -133,13 +133,16 @@ class AVLTree(binary_tree.BinaryTree):
 
         temp = node
         while parent:
-            parent.height = 1 + max(self.get_height(parent.left),
-                                    self.get_height(parent.right))
+            parent.height = 1 + max(
+                self.get_height(parent.left), self.get_height(parent.right)
+            )
 
             grandparent = parent.parent
             # grandparent is unbalanced
-            if self._balance_factor(grandparent) < -1 or \
-               self._balance_factor(grandparent) > 1:
+            if (
+                self._balance_factor(grandparent) < -1
+                or self._balance_factor(grandparent) > 1
+            ):
                 if parent == grandparent.left:
                     # Case 1
                     if temp == grandparent.left.left:
@@ -172,14 +175,18 @@ class AVLTree(binary_tree.BinaryTree):
 
         # No children or only one right child
         if deleting_node.left is None:
-            self._transplant(deleting_node=deleting_node, replacing_node=deleting_node.right)
+            self._transplant(
+                deleting_node=deleting_node, replacing_node=deleting_node.right
+            )
 
             if deleting_node.right:
                 self._delete_fixup(fixing_node=deleting_node.right)
 
         # Only one left child
         elif deleting_node.right is None:
-            self._transplant(deleting_node=deleting_node, replacing_node=deleting_node.left)
+            self._transplant(
+                deleting_node=deleting_node, replacing_node=deleting_node.left
+            )
 
             if deleting_node.left:
                 self._delete_fixup(fixing_node=deleting_node.left)
@@ -228,8 +235,7 @@ class AVLTree(binary_tree.BinaryTree):
         return current_node
 
     # Override
-    def get_successor(self,
-                      node: AVLNode) -> Optional[AVLNode]:
+    def get_successor(self, node: AVLNode) -> Optional[AVLNode]:
         """Return the successor node in the in-order order.
 
         See Also
@@ -245,8 +251,7 @@ class AVLTree(binary_tree.BinaryTree):
         return parent
 
     # Override
-    def get_predecessor(self,
-                        node: AVLNode) -> Optional[AVLNode]:
+    def get_predecessor(self, node: AVLNode) -> Optional[AVLNode]:
         """Return the predecessor node in the in-order order.
 
         See Also
@@ -331,10 +336,14 @@ class AVLTree(binary_tree.BinaryTree):
     def _delete_fixup(self, fixing_node: AVLNode):
 
         while fixing_node:
-            fixing_node.height = 1 + max(self.get_height(fixing_node.left), self.get_height(fixing_node.right))
+            fixing_node.height = 1 + max(
+                self.get_height(fixing_node.left), self.get_height(fixing_node.right)
+            )
 
             # Case the grandparent is unbalanced
-            if (self._balance_factor(fixing_node) < -1) or (self._balance_factor(fixing_node) > 1):
+            if (self._balance_factor(fixing_node) < -1) or (
+                self._balance_factor(fixing_node) > 1
+            ):
                 temp = fixing_node
 
                 if temp.left.height > temp.right.height:

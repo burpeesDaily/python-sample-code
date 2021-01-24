@@ -1,9 +1,10 @@
+black
+flake8
 mypy
 pydocstyle
 pytest
-black
-flake8
-Sphinx
+pytest-cov
+sphinx
 
 # Install the following packages in development mode
 -e .

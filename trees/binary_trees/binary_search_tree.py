@@ -133,25 +133,29 @@ class BinarySearchTree(binary_tree.BinaryTree):
 
             # Case 1: no child or Case 2: only one right child
             if deleting_node.left is None:
-                self._transplant(deleting_node=deleting_node,
-                                 replacing_node=deleting_node.right)
+                self._transplant(
+                    deleting_node=deleting_node, replacing_node=deleting_node.right
+                )
             # Case 2: only one left child
             elif deleting_node.right is None:
-                self._transplant(deleting_node=deleting_node,
-                                 replacing_node=deleting_node.left)
+                self._transplant(
+                    deleting_node=deleting_node, replacing_node=deleting_node.left
+                )
             # Case 3: wwo children
             else:
-                replacing_node = \
-                    self.get_leftmost(node=deleting_node.right)
+                replacing_node = self.get_leftmost(node=deleting_node.right)
                 # the leftmost node is not the direct child of
                 # the deleting node
                 if replacing_node.parent != deleting_node:
-                    self._transplant(deleting_node=replacing_node,
-                                     replacing_node=replacing_node.right)
+                    self._transplant(
+                        deleting_node=replacing_node,
+                        replacing_node=replacing_node.right,
+                    )
                     replacing_node.right = deleting_node.right
                     replacing_node.right.parent = replacing_node
-                self._transplant(deleting_node=deleting_node,
-                                 replacing_node=replacing_node)
+                self._transplant(
+                    deleting_node=deleting_node, replacing_node=replacing_node
+                )
                 replacing_node.left = deleting_node.left
                 replacing_node.left.parent = replacing_node
 
@@ -185,8 +189,7 @@ class BinarySearchTree(binary_tree.BinaryTree):
         return current_node
 
     # Override
-    def get_successor(self,
-                      node: binary_tree.Node) -> Optional[binary_tree.Node]:
+    def get_successor(self, node: binary_tree.Node) -> Optional[binary_tree.Node]:
         """Return the successor node in the in-order order.
 
         See Also
@@ -203,8 +206,7 @@ class BinarySearchTree(binary_tree.BinaryTree):
         return parent
 
     # Override
-    def get_predecessor(self,
-                        node: binary_tree.Node) -> Optional[binary_tree.Node]:
+    def get_predecessor(self, node: binary_tree.Node) -> Optional[binary_tree.Node]:
         """Return the predecessor node in the in-order order.
 
         See Also
@@ -234,11 +236,13 @@ class BinarySearchTree(binary_tree.BinaryTree):
         if node.left is None and node.right is None:
             return 0
 
-        return max(self.get_height(node.left),
-                   self.get_height(node.right)) + 1
+        return max(self.get_height(node.left), self.get_height(node.right)) + 1
 
-    def _transplant(self, deleting_node: binary_tree.Node,
-                    replacing_node: Optional[binary_tree.Node]):
+    def _transplant(
+        self,
+        deleting_node: binary_tree.Node,
+        replacing_node: Optional[binary_tree.Node],
+    ):
         if deleting_node.parent is None:
             self.root = replacing_node
         elif deleting_node == deleting_node.parent.left:

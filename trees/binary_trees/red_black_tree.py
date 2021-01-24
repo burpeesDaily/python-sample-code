@@ -143,9 +143,14 @@ class RBTree(binary_tree.BinaryTree):
         --------
         :py:meth:`trees.binary_trees.binary_tree.BinaryTree.insert`.
         """
-        node = RBNode(key=key, data=data, left=self._NIL,
-                      right=self._NIL, parent=self._NIL, 
-                      color=Color.Red)  # Color the new node as red.
+        node = RBNode(
+            key=key,
+            data=data,
+            left=self._NIL,
+            right=self._NIL,
+            parent=self._NIL,
+            color=Color.Red,
+        )  # Color the new node as red.
         parent: Union[RBNode, LeafNode] = self._NIL
         temp: Union[RBNode, LeafNode] = self.root
         while isinstance(temp, RBNode):  # Look for the insert location
@@ -184,8 +189,7 @@ class RBTree(binary_tree.BinaryTree):
         # No children or only one right child
         if isinstance(deleting_node.left, LeafNode):
             replacing_node = deleting_node.right
-            self._transplant(deleting_node=deleting_node,
-                             replacing_node=replacing_node)
+            self._transplant(deleting_node=deleting_node, replacing_node=replacing_node)
             # Fixup
             if original_color == Color.Black:
                 if isinstance(replacing_node, RBNode):
@@ -194,8 +198,7 @@ class RBTree(binary_tree.BinaryTree):
         # Only one left child
         elif isinstance(deleting_node.right, LeafNode):
             replacing_node = deleting_node.left
-            self._transplant(deleting_node=deleting_node,
-                             replacing_node=replacing_node)
+            self._transplant(deleting_node=deleting_node, replacing_node=replacing_node)
             # Fixup
             if original_color == Color.Black:
                 self._delete_fixup(fixing_node=replacing_node)
@@ -289,12 +292,10 @@ class RBTree(binary_tree.BinaryTree):
         if node is None:
             return 0
 
-        if isinstance(node.left, LeafNode) and \
-           isinstance(node.right, LeafNode):
+        if isinstance(node.left, LeafNode) and isinstance(node.right, LeafNode):
             return 0
 
-        return max(self.get_height(node.left),
-                   self.get_height(node.right)) + 1
+        return max(self.get_height(node.left), self.get_height(node.right)) + 1
 
     def inorder_traverse(self) -> binary_tree.Pairs:
         """Perform In-Order traversal.
@@ -475,8 +476,7 @@ class RBTree(binary_tree.BinaryTree):
         self.root.color = Color.Black
 
     def _delete_fixup(self, fixing_node: Union[LeafNode, RBNode]):
-        while (fixing_node is not self.root) and \
-              (fixing_node.color == Color.Black):
+        while (fixing_node is not self.root) and (fixing_node.color == Color.Black):
             if fixing_node == fixing_node.parent.left:
                 sibling = fixing_node.parent.right
 
@@ -488,10 +488,11 @@ class RBTree(binary_tree.BinaryTree):
                     sibling = fixing_node.parent.right
 
                 # Case 2: the sibling is black and its children are black.
-                if (sibling.left.color == Color.Black) and \
-                   (sibling.right.color == Color.Black):
+                if (sibling.left.color == Color.Black) and (
+                    sibling.right.color == Color.Black
+                ):
                     sibling.color = Color.Red
-                    fixing_node = fixing_node.parent # new fixing node
+                    fixing_node = fixing_node.parent  # new fixing node
 
                 # Cases 3 and 4: the sibling is black and one of
                 # its child is red and the other is black.
@@ -521,8 +522,9 @@ class RBTree(binary_tree.BinaryTree):
                     sibling = fixing_node.parent.left
 
                 # Case 6: the sibling is black and its children are black.
-                if (sibling.right.color == Color.Black) and \
-                   (sibling.left.color == Color.Black):
+                if (sibling.right.color == Color.Black) and (
+                    sibling.left.color == Color.Black
+                ):
                     sibling.color = Color.Red
                     fixing_node = fixing_node.parent
                 else:
@@ -542,8 +544,9 @@ class RBTree(binary_tree.BinaryTree):
 
         fixing_node.color = Color.Black
 
-    def _transplant(self, deleting_node: RBNode,
-                    replacing_node: Union[RBNode, LeafNode]):
+    def _transplant(
+        self, deleting_node: RBNode, replacing_node: Union[RBNode, LeafNode]
+    ):
         if isinstance(deleting_node.parent, LeafNode):
             self.root = replacing_node
         elif deleting_node == deleting_node.parent.left:

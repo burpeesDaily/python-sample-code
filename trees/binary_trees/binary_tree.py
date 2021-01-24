@@ -60,8 +60,10 @@ class BinaryTree(abc.ABC, Generic[NodeType]):
 
     def __repr__(self):
         """Provie the tree representation, so we can visualize its layout."""
-        return f"{type(self)}, root={self.root}, " \
-               f"tree_height={str(self.get_height(self.root))}"
+        return (
+            f"{type(self)}, root={self.root}, "
+            f"tree_height={str(self.get_height(self.root))}"
+        )
 
     @abc.abstractmethod
     def search(self, key: Any) -> NodeType:

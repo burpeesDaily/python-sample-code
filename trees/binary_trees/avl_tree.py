@@ -148,7 +148,8 @@ class AVLTree(binary_tree.BinaryTree):
         --------
         :py:meth:`trees.binary_trees.binary_tree.BinaryTree.delete`.
         """
-        if self.root and (deleting_node := self.search(key=key)):
+        deleting_node = self.search(key=key)
+        if self.root and deleting_node:
 
             # Case: no child
             if (deleting_node.left is None) and (deleting_node.right is None):

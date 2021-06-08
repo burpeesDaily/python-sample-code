@@ -81,12 +81,15 @@ def test_deletion(basic_tree):
         (34, "34"),
     ]
 
-    # FIXME
-    """
     # Two children
     tree.delete(11)
     assert [item for item in traversal.inorder_traverse(tree)] == [
-        (1, "1"), (4, "4"), (7, "7"), (17, "17"),
-        (23, "23"), (24, "24"), (30, "30"), (34, "34")
+        (1, "1"),
+        (4, "4"),
+        (7, "7"),
+        (17, "17"),
+        (23, "23"),
+        (24, "24"),
+        (30, "30"),
+        (34, "34"),
     ]
-    """

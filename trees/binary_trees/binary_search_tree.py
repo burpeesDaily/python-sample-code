@@ -85,7 +85,7 @@ class BinarySearchTree(binary_tree.BinaryTree):
 
         while current:
             if key == current.key:
-                return current
+                return current  # type: ignore
             elif key < current.key:
                 current = current.left
             else:  # key > current.key:

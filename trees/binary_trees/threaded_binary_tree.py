@@ -116,7 +116,7 @@ class RightThreadedBinaryTree(binary_tree.BinaryTree):
         current = self.root
         while current:
             if key == current.key:
-                return current
+                return current  # type: ignore
             elif key < current.key:
                 current = current.left
             else:  # key > current.key
@@ -458,7 +458,7 @@ class LeftThreadedBinaryTree(binary_tree.BinaryTree):
 
         while current:
             if key == current.key:
-                return current
+                return current  # type: ignore
             elif key < current.key:
                 if current.isThread is False:
                     current = current.left
@@ -789,7 +789,7 @@ class DoubleThreadedBinaryTree(binary_tree.BinaryTree):
         current = self.root
         while current:
             if key == current.key:
-                return current
+                return current  # type: ignore
             elif key < current.key:
                 if current.leftThread is False:
                     current = current.left

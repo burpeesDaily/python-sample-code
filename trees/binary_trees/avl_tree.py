@@ -95,12 +95,12 @@ class AVLTree(binary_tree.BinaryTree):
         current = self.root
 
         while current:
-            if key == current.key:
-                return current
-            elif key < current.key:
+            if key < current.key:
                 current = current.left
-            else:  # key > current.key:
+            elif key > current.key:
                 current = current.right
+            else:  # Key found
+                return current  # type: ignore
         raise tree_exceptions.KeyNotFoundError(key=key)
 
     # Override
@@ -111,57 +111,34 @@ class AVLTree(binary_tree.BinaryTree):
         --------
         :py:meth:`trees.binary_trees.binary_tree.BinaryTree.insert`.
         """
-        temp: Optional[AVLNode] = self.root
+        new_node = AVLNode(key=key, data=data)
         parent: Optional[AVLNode] = None
-        while temp:
-            parent = temp
-            if key == temp.key:
-                raise tree_exceptions.DuplicateKeyError(key=key)
-            elif key < temp.key:
-                temp = temp.left
+        current: Optional[AVLNode] = self.root
+        while current:
+            parent = current
+            if new_node.key < current.key:
+                current = current.left
+            elif new_node.key > current.key:
+                current = current.right
             else:
-                temp = temp.right
-
-        node = AVLNode(key=key, data=data, parent=parent)
-
+                raise tree_exceptions.DuplicateKeyError(key=new_node.key)
+        new_node.parent = parent
+        # If the tree is empty, set the new node to be the root.
         if parent is None:
-            self.root = node
-        elif node.key < parent.key:
-            parent.left = node
+            self.root = new_node
         else:
-            parent.right = node
+            if new_node.key < parent.key:
+                parent.left = new_node
+            else:
+                parent.right = new_node
 
-        temp = node
-        while parent:
-            parent.height = 1 + max(
-                self.get_height(parent.left), self.get_height(parent.right)
-            )
-
-            grandparent = parent.parent
-            # grandparent is unbalanced
-            if (
-                self._balance_factor(grandparent) < -1
-                or self._balance_factor(grandparent) > 1
-            ):
-                if parent == grandparent.left:
-                    # Case 1
-                    if temp == grandparent.left.left:
-                        self._right_rotate(grandparent)
-                    # Case 3
-                    elif temp == grandparent.left.right:
-                        self._left_rotate(parent)
-                        self._right_rotate(grandparent)
-                elif parent == grandparent.right:
-                    # Case 2
-                    if temp == grandparent.right.right:
-                        self._left_rotate(grandparent)
-                    # Case 4
-                    elif temp == grandparent.right.left:
-                        self._right_rotate(parent)
-                        self._left_rotate(grandparent)
-                break
-            parent = parent.parent
-            temp = temp.parent
+            # After the insertion, fix the broken AVL-tree-property.
+            # If the parent has two children after inserting the new node,
+            # it means the parent had one child before the insertion.
+            # In this case, neither AVL-tree property breaks nor
+            # heights update requires.
+            if not (parent.left and parent.right):
+                self._insert_fixup(new_node)
 
     # Override
     def delete(self, key: Any):
@@ -171,41 +148,25 @@ class AVLTree(binary_tree.BinaryTree):
         --------
         :py:meth:`trees.binary_trees.binary_tree.BinaryTree.delete`.
         """
-        deleting_node: AVLNode = self.search(key=key)
+        if self.root and (deleting_node := self.search(key=key)):
 
-        # No children or only one right child
-        if deleting_node.left is None:
-            self._transplant(
-                deleting_node=deleting_node, replacing_node=deleting_node.right
-            )
-
-            if deleting_node.right:
-                self._delete_fixup(fixing_node=deleting_node.right)
-
-        # Only one left child
-        elif deleting_node.right is None:
-            self._transplant(
-                deleting_node=deleting_node, replacing_node=deleting_node.left
-            )
-
-            if deleting_node.left:
-                self._delete_fixup(fixing_node=deleting_node.left)
-
-        # Two children
-        else:
-            replacing_node = self.get_leftmost(node=deleting_node.right)
-            # The deleting node is not the direct parent of the minimum node.
-            if replacing_node.parent != deleting_node:
-                self._transplant(replacing_node, replacing_node.right)
-                replacing_node.right = deleting_node.right
-                replacing_node.right.parent = replacing_node
-
-            self._transplant(deleting_node, replacing_node)
-            replacing_node.left = deleting_node.left
-            replacing_node.left.parent = replacing_node
-
-            if replacing_node:
-                self._delete_fixup(replacing_node)
+            # Case: no child
+            if (deleting_node.left is None) and (deleting_node.right is None):
+                self._delete_no_child(deleting_node=deleting_node)
+            # Case: Two children
+            elif deleting_node.left and deleting_node.right:
+                replacing_node = self.get_leftmost(node=deleting_node.right)
+                # Replace the deleting node with the replacing node,
+                # but keep the replacing node in place.
+                deleting_node.key = replacing_node.key
+                deleting_node.data = replacing_node.data
+                if replacing_node.right:  # The replacing node cannot have left child.
+                    self._delete_one_child(deleting_node=replacing_node)
+                else:
+                    self._delete_no_child(deleting_node=replacing_node)
+            # Case: one child
+            else:
+                self._delete_one_child(deleting_node=deleting_node)
 
     # Override
     def get_leftmost(self, node: AVLNode) -> AVLNode:
@@ -274,50 +235,126 @@ class AVLTree(binary_tree.BinaryTree):
         --------
         :py:meth:`trees.binary_trees.binary_tree.BinaryTree.get_height`.
         """
-        if node is None:
-            return -1
-        return node.height
+        if node:
+            return node.height
+        # None has height -1
+        return -1
 
-    def _left_rotate(self, node: AVLNode):
-        temp = node.right
-        node.right = temp.left
-        if temp.left:
-            temp.left.parent = node
-        temp.parent = node.parent
-        if node.parent is None:  # node is the root
-            self.root = temp
-        elif node == node.parent.left:  # node is the left child
-            node.parent.left = temp
-        else:  # node is the right child
-            node.parent.right = temp
+    def _get_balance_factor(self, node: Optional[AVLNode]):
+        if node:
+            return self.get_height(node.left) - self.get_height(node.right)
+        # Empty node's height is -1
+        return -1
 
-        temp.left = node
-        node.parent = temp
+    def _left_rotate(self, node_x: AVLNode):
+        node_y = node_x.right  # Set node y
+        if node_y:
+            # Turn node y's subtree into node x's subtree
+            node_x.right = node_y.left
+            if node_y.left:
+                node_y.left.parent = node_x
+            node_y.parent = node_x.parent
 
-        node.height = 1 + max(self.get_height(node.left), self.get_height(node.right))
-        temp.height = 1 + max(self.get_height(temp.left), self.get_height(temp.right))
+            # If node's parent is a Leaf, node y becomes the new root.
+            if node_x.parent is None:
+                self.root = node_y
+            # Otherwise, update node x's parent.
+            elif node_x == node_x.parent.left:
+                node_x.parent.left = node_y
+            else:
+                node_x.parent.right = node_y
 
-    def _right_rotate(self, node: AVLNode):
-        temp = node.left
-        node.left = temp.right
-        if temp.right:
-            temp.right.parent = node
-        temp.parent = node.parent
-        if node.parent is None:  # node is the root
-            self.root = temp
-        elif node == node.parent.right:  # node is the left child
-            node.parent.right = temp
-        else:  # node is the right child
-            node.parent.left = temp
+            node_y.left = node_x
+            node_x.parent = node_y
 
-        temp.right = node
-        node.parent = temp
+            node_x.height = 1 + max(
+                self.get_height(node_x.left), self.get_height(node_x.right)
+            )
+            node_y.height = 1 + max(
+                self.get_height(node_y.left), self.get_height(node_y.right)
+            )
 
-        node.height = 1 + max(self.get_height(node.left), self.get_height(node.right))
-        temp.height = 1 + max(self.get_height(temp.left), self.get_height(temp.right))
+    def _right_rotate(self, node_x: AVLNode):
+        node_y = node_x.left  # Set node y
+        if node_y:
+            # Turn node y's subtree into node x's subtree
+            node_x.left = node_y.right
+            if node_y.right:
+                node_y.right.parent = node_x
+            node_y.parent = node_x.parent
 
-    def _transplant(self, deleting_node: AVLNode, replacing_node: AVLNode):
+            # If node's parent is a Leaf, node y becomes the new root.
+            if node_x.parent is None:
+                self.root = node_y
+            # Otherwise, update node x's parent.
+            elif node_x == node_x.parent.right:
+                node_x.parent.right = node_y
+            else:
+                node_x.parent.left = node_y
 
+            node_y.right = node_x
+            node_x.parent = node_y
+
+            node_x.height = 1 + max(
+                self.get_height(node_x.left), self.get_height(node_x.right)
+            )
+            node_y.height = 1 + max(
+                self.get_height(node_y.left), self.get_height(node_y.right)
+            )
+
+    def _insert_fixup(self, new_node: AVLNode) -> None:
+        parent = new_node.parent
+
+        while parent:
+            parent.height = 1 + max(
+                self.get_height(parent.left), self.get_height(parent.right)
+            )
+
+            grandparent = parent.parent
+            # grandparent is unbalanced
+            if grandparent:
+                if self._get_balance_factor(grandparent) > 1:
+                    # Case Left-Left
+                    if self._get_balance_factor(parent) >= 0:
+                        self._right_rotate(grandparent)
+                    # Case Left-Right
+                    elif self._get_balance_factor(parent) < 0:
+                        self._left_rotate(parent)
+                        self._right_rotate(grandparent)
+                    # Since the fixup does not affect the ancestor of the unbalanced
+                    # node, exit the loop to complete the fixup process.
+                    break
+                elif self._get_balance_factor(grandparent) < -1:
+                    # Case Right-Right
+                    if self._get_balance_factor(parent) <= 0:
+                        self._left_rotate(grandparent)
+                    # Case Right-Left
+                    elif self._get_balance_factor(parent) > 0:
+                        self._right_rotate(parent)
+                        self._left_rotate(grandparent)
+                    # Since the fixup does not affect the ancestor of the unbalanced
+                    # node, exit the loop to complete the fixup process.
+                    break
+            parent = parent.parent
+
+    def _delete_no_child(self, deleting_node: AVLNode) -> None:
+        parent = deleting_node.parent
+        self._transplant(deleting_node=deleting_node, replacing_node=None)
+        if parent:
+            self._delete_fixup(fixing_node=parent)
+
+    def _delete_one_child(self, deleting_node: AVLNode) -> None:
+        parent = deleting_node.parent
+        replacing_node = (
+            deleting_node.right if deleting_node.right else deleting_node.left
+        )
+        self._transplant(deleting_node=deleting_node, replacing_node=replacing_node)
+        if parent:
+            self._delete_fixup(fixing_node=parent)
+
+    def _transplant(
+        self, deleting_node: AVLNode, replacing_node: Optional[AVLNode]
+    ) -> None:
         if deleting_node.parent is None:
             self.root = replacing_node
         elif deleting_node == deleting_node.parent.left:
@@ -328,55 +365,30 @@ class AVLTree(binary_tree.BinaryTree):
         if replacing_node:
             replacing_node.parent = deleting_node.parent
 
-    def _balance_factor(self, node: Optional[AVLNode]):
-        if node is None:
-            return -1
-        return self.get_height(node.left) - self.get_height(node.right)
-
-    def _delete_fixup(self, fixing_node: AVLNode):
-
+    def _delete_fixup(self, fixing_node: AVLNode) -> None:
         while fixing_node:
             fixing_node.height = 1 + max(
                 self.get_height(fixing_node.left), self.get_height(fixing_node.right)
             )
 
-            # Case the grandparent is unbalanced
-            if (self._balance_factor(fixing_node) < -1) or (
-                self._balance_factor(fixing_node) > 1
-            ):
-                temp = fixing_node
+            if self._get_balance_factor(fixing_node) > 1:
+                # Case Left-Left
+                if self._get_balance_factor(fixing_node.left) >= 0:
+                    self._right_rotate(fixing_node)
+                # Case Left-Right
+                elif self._get_balance_factor(fixing_node.left) < 0:
+                    # The fixing node's left child cannot be empty
+                    self._left_rotate(fixing_node.left)  # type: ignore
+                    self._right_rotate(fixing_node)
 
-                if temp.left.height > temp.right.height:
-                    y = temp.left
-                else:
-                    y = temp.right
+            elif self._get_balance_factor(fixing_node) < -1:
+                # Case Right-Right
+                if self._get_balance_factor(fixing_node.right) <= 0:
+                    self._left_rotate(fixing_node)
+                # Case Right-Left
+                elif self._get_balance_factor(fixing_node.right) > 0:
+                    # The fixing node's right child cannot be empty
+                    self._right_rotate(fixing_node.right)  # type: ignore
+                    self._left_rotate(fixing_node)
 
-                if y.left.height > y.right.height:
-                    z = y.left
-                elif y.left.height < y.right.height:
-                    z = y.right
-                else:
-                    if y == temp.left:
-                        z = y.left
-                    else:
-                        z = y.right
-
-                if y == temp.left:
-                    # Case 1
-                    if z == temp.left.left:
-                        self._right_rotate(temp)
-                    # Case 3
-                    elif z == temp.left.right:
-                        self._left_rotate(y)
-                        self._right_rotate(temp)
-
-                elif y == temp.right:
-                    # Case 2
-                    if z == temp.right.right:
-                        self._left_rotate(temp)
-                    # Case 4
-                    elif z == temp.right.left:
-                        self._right_rotate(y)
-                        self._left_rotate(temp)
-
-            fixing_node = fixing_node.parent
+            fixing_node = fixing_node.parent  # type: ignore

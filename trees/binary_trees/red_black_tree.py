@@ -17,8 +17,8 @@ from trees.binary_trees import binary_tree
 class Color(enum.Enum):
     """Color definition for Red-Black Tree."""
 
-    Red = enum.auto()
-    Black = enum.auto()
+    RED = enum.auto()
+    BLACK = enum.auto()
 
 
 @dataclass
@@ -28,7 +28,7 @@ class LeafNode(binary_tree.Node):
     left = None
     right = None
     parent = None
-    color = Color.Black
+    color = Color.BLACK
 
 
 @dataclass
@@ -38,7 +38,7 @@ class RBNode(binary_tree.Node):
     left: Union["RBNode", LeafNode]
     right: Union["RBNode", LeafNode]
     parent: Union["RBNode", LeafNode]
-    color: Color = Color.Red
+    color: Color = Color.RED
 
 
 class RBTree(binary_tree.BinaryTree):
@@ -149,7 +149,7 @@ class RBTree(binary_tree.BinaryTree):
             left=self._NIL,
             right=self._NIL,
             parent=self._NIL,
-            color=Color.Red,
+            color=Color.RED,
         )  # Color the new node as red.
         parent: Union[RBNode, LeafNode] = self._NIL
         temp: Union[RBNode, LeafNode] = self.root
@@ -161,7 +161,7 @@ class RBTree(binary_tree.BinaryTree):
                 temp = temp.right
         # If the parent is a LeafNode, set the new node to be the root.
         if isinstance(parent, LeafNode):
-            node.color = Color.Black
+            node.color = Color.BLACK
             self.root = node
         else:
             node.parent = parent
@@ -191,7 +191,7 @@ class RBTree(binary_tree.BinaryTree):
             replacing_node = deleting_node.right
             self._transplant(deleting_node=deleting_node, replacing_node=replacing_node)
             # Fixup
-            if original_color == Color.Black:
+            if original_color == Color.BLACK:
                 if isinstance(replacing_node, RBNode):
                     self._delete_fixup(fixing_node=replacing_node)
 
@@ -200,7 +200,7 @@ class RBTree(binary_tree.BinaryTree):
             replacing_node = deleting_node.left
             self._transplant(deleting_node=deleting_node, replacing_node=replacing_node)
             # Fixup
-            if original_color == Color.Black:
+            if original_color == Color.BLACK:
                 self._delete_fixup(fixing_node=replacing_node)
 
         # Two children
@@ -219,7 +219,7 @@ class RBTree(binary_tree.BinaryTree):
             replacing_node.left.parent = replacing_node
             replacing_node.color = deleting_node.color
             # Fixup
-            if original_color == Color.Black:
+            if original_color == Color.BLACK:
                 if isinstance(replacing_replacement, RBNode):
                     self._delete_fixup(fixing_node=replacing_replacement)
 
@@ -327,7 +327,7 @@ class RBTree(binary_tree.BinaryTree):
         [(1, '1'), (4, '4'), (7, '7'), (11, '11'), (15, '15'), (20, '20'),
         (22, '22'), (23, '23'), (24, '24'), (30, '30'), (34, '34')]
         """
-        return self._inorder_traverse(node=self.root)
+        return self._inorder_traverse(node=self.root)  # type: ignore
 
     def preorder_traverse(self) -> binary_tree.Pairs:
         """Perform Pre-Order traversal.
@@ -359,7 +359,7 @@ class RBTree(binary_tree.BinaryTree):
         [(20, "20"), (7, "7"), (4, "4"), (1, "1"), (11, "11"), (15, "15"),
         (23, "23"), (22, "22"), (30, "30"), (24, "24"), (34, "34")]
         """
-        return self._preorder_traverse(node=self.root)
+        return self._preorder_traverse(node=self.root)  # type: ignore
 
     def postorder_traverse(self) -> binary_tree.Pairs:
         """Perform Post-Order traversal.
@@ -391,7 +391,7 @@ class RBTree(binary_tree.BinaryTree):
         [(1, "1"), (4, "4"), (15, "15"), (11, "11"), (7, "7"), (22, "22"),
         (24, "24"), (34, "34"), (30, "30"), (23, "23"), (20, "20")]
         """
-        return self._postorder_traverse(node=self.root)
+        return self._postorder_traverse(node=self.root)  # type: ignore
 
     def _left_rotate(self, node_x: RBNode):
         node_y = node_x.right  # Set node y
@@ -439,110 +439,113 @@ class RBTree(binary_tree.BinaryTree):
         node_x.parent = node_y
 
     def _insert_fixup(self, fixing_node: RBNode):
-        while fixing_node.parent.color == Color.Red:
-            if fixing_node.parent == fixing_node.parent.parent.left:
-                parent_sibling = fixing_node.parent.parent.right
-                if parent_sibling.color == Color.Red:  # Case 1
-                    fixing_node.parent.color = Color.Black
-                    parent_sibling.color = Color.Black
-                    fixing_node.parent.parent.color = Color.Red
-                    fixing_node = fixing_node.parent.parent
+        while fixing_node.parent.color == Color.RED:
+            if fixing_node.parent == fixing_node.parent.parent.left:  # type: ignore
+                parent_sibling = fixing_node.parent.parent.right  # type: ignore
+                # Case 1
+                if parent_sibling.color == Color.RED:  # type: ignore
+                    fixing_node.parent.color = Color.BLACK
+                    parent_sibling.color = Color.BLACK  # type: ignore
+                    fixing_node.parent.parent.color = Color.RED  # type: ignore
+                    fixing_node = fixing_node.parent.parent  # type: ignore
                 else:
                     # Case 2
-                    if fixing_node == fixing_node.parent.right:
-                        fixing_node = fixing_node.parent
+                    if fixing_node == fixing_node.parent.right:  # type: ignore
+                        fixing_node = fixing_node.parent  # type: ignore
                         self._left_rotate(fixing_node)
                     # Case 3
-                    fixing_node.parent.color = Color.Black
-                    fixing_node.parent.parent.color = Color.Red
-                    self._right_rotate(fixing_node.parent.parent)
+                    fixing_node.parent.color = Color.BLACK
+                    fixing_node.parent.parent.color = Color.RED  # type: ignore
+                    self._right_rotate(fixing_node.parent.parent)  # type: ignore
             else:
-                parent_sibling = fixing_node.parent.parent.left
-                if parent_sibling.color == Color.Red:  # Case 4
-                    fixing_node.parent.color = Color.Black
-                    parent_sibling.color = Color.Black
-                    fixing_node.parent.parent.color = Color.Red
-                    fixing_node = fixing_node.parent.parent
+                parent_sibling = fixing_node.parent.parent.left  # type: ignore
+                # Case 4
+                if parent_sibling.color == Color.RED:  # type: ignore
+                    fixing_node.parent.color = Color.BLACK
+                    parent_sibling.color = Color.BLACK  # type: ignore
+                    fixing_node.parent.parent.color = Color.RED  # type: ignore
+                    fixing_node = fixing_node.parent.parent  # type: ignore
                 else:
                     # Case 5
-                    if fixing_node == fixing_node.parent.left:
-                        fixing_node = fixing_node.parent
+                    if fixing_node == fixing_node.parent.left:  # type: ignore
+                        fixing_node = fixing_node.parent  # type: ignore
                         self._right_rotate(fixing_node)
                     # Case 6
-                    fixing_node.parent.color = Color.Black
-                    fixing_node.parent.parent.color = Color.Red
-                    self._left_rotate(fixing_node.parent.parent)
+                    fixing_node.parent.color = Color.BLACK
+                    fixing_node.parent.parent.color = Color.RED  # type: ignore
+                    self._left_rotate(fixing_node.parent.parent)  # type: ignore
 
-        self.root.color = Color.Black
+        self.root.color = Color.BLACK
 
     def _delete_fixup(self, fixing_node: Union[LeafNode, RBNode]):
-        while (fixing_node is not self.root) and (fixing_node.color == Color.Black):
-            if fixing_node == fixing_node.parent.left:
-                sibling = fixing_node.parent.right
+        while (fixing_node is not self.root) and (fixing_node.color == Color.BLACK):
+            if fixing_node == fixing_node.parent.left:  # type: ignore
+                sibling = fixing_node.parent.right  # type: ignore
 
                 # Case 1: the sibling is red.
-                if sibling.color == Color.Red:
-                    sibling.color == Color.Black
-                    fixing_node.parent.color = Color.Red
-                    self._left_rotate(fixing_node.parent)
-                    sibling = fixing_node.parent.right
+                if sibling.color == Color.RED:  # type: ignore
+                    sibling.color == Color.BLACK  # type: ignore
+                    fixing_node.parent.color = Color.RED  # type: ignore
+                    self._left_rotate(fixing_node.parent)  # type: ignore
+                    sibling = fixing_node.parent.right  # type: ignore
 
                 # Case 2: the sibling is black and its children are black.
-                if (sibling.left.color == Color.Black) and (
-                    sibling.right.color == Color.Black
+                if (sibling.left.color == Color.BLACK) and (  # type: ignore
+                    sibling.right.color == Color.BLACK  # type: ignore
                 ):
-                    sibling.color = Color.Red
-                    fixing_node = fixing_node.parent  # new fixing node
+                    sibling.color = Color.RED  # type: ignore
+                    # new fixing node
+                    fixing_node = fixing_node.parent  # type: ignore
 
                 # Cases 3 and 4: the sibling is black and one of
                 # its child is red and the other is black.
                 else:
                     # Case 3: the sibling is black and its left child is red.
-                    if sibling.right.color == Color.Black:
-                        sibling.left.color = Color.Black
-                        sibling.color = Color.Red
-                        self._right_rotate(node_x=sibling)
+                    if sibling.right.color == Color.BLACK:  # type: ignore
+                        sibling.left.color = Color.BLACK  # type: ignore
+                        sibling.color = Color.RED  # type: ignore
+                        self._right_rotate(node_x=sibling)  # type: ignore
 
                     # Case 4: the sibling is black and its right child is red.
-                    sibling.color = fixing_node.parent.color
-                    fixing_node.parent.color = Color.Black
-                    sibling.right.color = Color.Black
-                    self._left_rotate(node_x=fixing_node.parent)
+                    sibling.color = fixing_node.parent.color  # type: ignore
+                    fixing_node.parent.color = Color.BLACK  # type: ignore
+                    sibling.right.color = Color.BLACK  # type: ignore
+                    self._left_rotate(node_x=fixing_node.parent)  # type: ignore
                     # Once we are here, all the violation has been fixed, so
                     # move to the root to terminate the loop.
                     fixing_node = self.root
             else:
-                sibling = fixing_node.parent.left
+                sibling = fixing_node.parent.left  # type: ignore
 
                 # Case 5: the sibling is red.
-                if sibling.color == Color.Red:
-                    sibling.color == Color.Black
-                    fixing_node.parent.color = Color.Red
-                    self._right_rotate(node_x=fixing_node.parent)
-                    sibling = fixing_node.parent.left
+                if sibling.color == Color.RED:  # type: ignore
+                    sibling.color == Color.BLACK  # type: ignore
+                    fixing_node.parent.color = Color.RED  # type: ignore
+                    self._right_rotate(node_x=fixing_node.parent)  # type: ignore
+                    sibling = fixing_node.parent.left  # type: ignore
 
                 # Case 6: the sibling is black and its children are black.
-                if (sibling.right.color == Color.Black) and (
-                    sibling.left.color == Color.Black
+                if (sibling.right.color == Color.BLACK) and (  # type: ignore
+                    sibling.left.color == Color.BLACK  # type: ignore
                 ):
-                    sibling.color = Color.Red
-                    fixing_node = fixing_node.parent
+                    sibling.color = Color.RED  # type: ignore
+                    fixing_node = fixing_node.parent  # type: ignore
                 else:
                     # Case 7: the sibling is black and its right child is red.
-                    if sibling.left.color == Color.Black:
-                        sibling.right.color = Color.Black
-                        sibling.color = Color.Red
-                        self._left_rotate(node_x=sibling)
+                    if sibling.left.color == Color.BLACK:  # type: ignore
+                        sibling.right.color = Color.BLACK  # type: ignore
+                        sibling.color = Color.RED  # type: ignore
+                        self._left_rotate(node_x=sibling)  # type: ignore
                     # Case 8: the sibling is black and its left child is red.
-                    sibling.color = fixing_node.parent.color
-                    fixing_node.parent.color = Color.Black
-                    sibling.left.color = Color.Black
-                    self._right_rotate(node_x=fixing_node.parent)
+                    sibling.color = fixing_node.parent.color  # type: ignore
+                    fixing_node.parent.color = Color.BLACK  # type: ignore
+                    sibling.left.color = Color.BLACK  # type: ignore
+                    self._right_rotate(node_x=fixing_node.parent)  # type: ignore
                     # Once we are here, all the violation has been fixed, so
                     # move to the root to terminate the loop.
                     fixing_node = self.root
 
-        fixing_node.color = Color.Black
+        fixing_node.color = Color.BLACK
 
     def _transplant(
         self, deleting_node: RBNode, replacing_node: Union[RBNode, LeafNode]

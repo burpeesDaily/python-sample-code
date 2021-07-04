@@ -12,7 +12,7 @@ README = (HERE / "README.rst").read_text()
 # This call to setup() does all the work
 setuptools.setup(
     name="python-sample-code",
-    version="0.2.2",
+    version="0.0.1",
     description="The Python sample project is a Binary Tree Library",
     long_description=README,
     long_description_content_type="text/x-rst",

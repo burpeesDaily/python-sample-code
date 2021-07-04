@@ -1,5 +1,7 @@
 """Unit tests for the traversal module."""
 
+import random
+
 from trees.binary_trees import avl_tree
 from trees.binary_trees import binary_search_tree
 from trees.binary_trees import traversal
@@ -173,3 +175,40 @@ def test_avl_tree_traversal(basic_tree):
         (30, "30"),
         (23, "23"),
     ]
+
+
+def test_binary_search_tree_traversal_random():
+    """Test binary search tree traversal with random sampling."""
+    for _ in range(0, 10):
+
+        insert_data = random.sample(range(1, 2000), 1000)
+
+        tree = binary_search_tree.BinarySearchTree()
+        for key in insert_data:
+            tree.insert(key=key, data=str(key))
+
+        preorder_recursive = [item for item in traversal.preorder_traverse(tree, True)]
+        preorder = [item for item in traversal.preorder_traverse(tree, False)]
+        assert preorder_recursive == preorder
+
+        inorder_recursive = [item for item in traversal.inorder_traverse(tree, True)]
+        inorder_nonrecursive = [
+            item for item in traversal.inorder_traverse(tree, False)
+        ]
+        assert inorder_recursive == inorder_nonrecursive
+
+        rinorder_recursive = [
+            item for item in traversal.reverse_inorder_traverse(tree, True)
+        ]
+        rinorder_nonrecursive = [
+            item for item in traversal.reverse_inorder_traverse(tree, False)
+        ]
+        assert rinorder_recursive == rinorder_nonrecursive
+
+        postorder_recursive = [
+            item for item in traversal.postorder_traverse(tree, True)
+        ]
+        postorder_nonrecursive = [
+            item for item in traversal.postorder_traverse(tree, False)
+        ]
+        assert postorder_recursive == postorder_nonrecursive

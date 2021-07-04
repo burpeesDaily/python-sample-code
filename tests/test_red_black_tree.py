@@ -1,6 +1,7 @@
 """Unit tests for the red black tree module."""
 
 import pytest
+import random
 
 from trees import tree_exceptions
 
@@ -142,3 +143,23 @@ def test_red_black_tree_traversal(basic_tree):
         (23, "23"),
         (20, "20"),
     ]
+
+
+def test_random_insert_delete():
+    """Test random insert and delete."""
+    for _ in range(0, 10):
+        insert_data = random.sample(range(1, 2000), 1000)
+        delete_data = random.sample(insert_data, 500)
+
+        remaining_data = [item for item in insert_data if item not in delete_data]
+        remaining_data.sort()
+
+        tree = red_black_tree.RBTree()
+        for key in insert_data:
+            tree.insert(key=key, data=str(key))
+
+        for key in delete_data:
+            tree.delete(key=key)
+
+        result = [item for item, _ in tree.inorder_traverse()]
+        assert result == remaining_data

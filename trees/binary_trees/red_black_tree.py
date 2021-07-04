@@ -489,6 +489,9 @@ class RBTree(binary_tree.BinaryTree):
                     self._left_rotate(fixing_node.parent)  # type: ignore
                     sibling = fixing_node.parent.right  # type: ignore
 
+                if isinstance(sibling, LeafNode):
+                    break
+
                 # Case 2: the sibling is black and its children are black.
                 if (sibling.left.color == Color.BLACK) and (  # type: ignore
                     sibling.right.color == Color.BLACK  # type: ignore
@@ -523,6 +526,9 @@ class RBTree(binary_tree.BinaryTree):
                     fixing_node.parent.color = Color.RED  # type: ignore
                     self._right_rotate(node_x=fixing_node.parent)  # type: ignore
                     sibling = fixing_node.parent.left  # type: ignore
+
+                if isinstance(sibling, LeafNode):
+                    break
 
                 # Case 6: the sibling is black and its children are black.
                 if (sibling.right.color == Color.BLACK) and (  # type: ignore

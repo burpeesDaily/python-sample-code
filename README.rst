@@ -35,8 +35,7 @@ The library also provides the tree traversal feature to traverse binary trees.
 Requirements
 ------------
 
-The **Binary Tree Library** requires Python 3.7 or newer.
-The key Python 3.7 feature used in the project is `dataclass <https://docs.python.org/3/library/dataclasses.html#module-dataclasses>`_.
+The **Binary Tree Library** requires Python 3.9 or newer.
 
 Installation
 ------------

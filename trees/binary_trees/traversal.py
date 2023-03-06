@@ -281,7 +281,6 @@ def _inorder_traverse_non_recursive(root: SupportedNodeType) -> binary_tree.Pair
     current = root.left
 
     while True:
-
         if current:
             if current.right:
                 stack.append(current.right)
@@ -292,7 +291,6 @@ def _inorder_traverse_non_recursive(root: SupportedNodeType) -> binary_tree.Pair
             current = current.left
 
         else:  # current is None
-
             if len(stack) > 0:
                 current = stack.pop()
 
@@ -335,7 +333,6 @@ def _reverse_inorder_traverse_non_recursive(
     current = root.right
 
     while True:
-
         if current:
             if current.left:
                 stack.append(current.left)
@@ -346,7 +343,6 @@ def _reverse_inorder_traverse_non_recursive(
             current = current.right
 
         else:  # current is None
-
             if len(stack) > 0:
                 current = stack.pop()
 
@@ -412,7 +408,6 @@ def _postorder_traverse_non_recursive(root: SupportedNodeType) -> binary_tree.Pa
     current = root.left
 
     while True:
-
         if current:
             if current.right:
                 stack.append(current.right)

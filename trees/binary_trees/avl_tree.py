@@ -150,7 +150,6 @@ class AVLTree(binary_tree.BinaryTree):
         """
         deleting_node = self.search(key=key)
         if self.root and deleting_node:
-
             # Case: no child
             if (deleting_node.left is None) and (deleting_node.right is None):
                 self._delete_no_child(deleting_node=deleting_node)

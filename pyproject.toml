@@ -1,0 +1,23 @@
+[project]
+name = "python-sample-code"
+version = "0.0.1"
+authors = [
+    { name="Shun Huang", email="zsh@shunsvineyard.info" }
+]
+description = "The Python sample project is a Binary Tree Library"
+readme = {file = "README.rst", content-type = "text/x-rst"}
+requires-python = ">=3.9"
+license = {text = "MIT License"}
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+]
+keywords = ["sphinx"]
+
+
+[project.urls]
+repository = "https://github.com/shunsvineyard/python-sample-code"
+
+
+[project.scripts]
+tree-cli = "strees.bin.tree_cli:main"

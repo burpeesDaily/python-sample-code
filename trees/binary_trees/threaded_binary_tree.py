@@ -138,7 +138,6 @@ class RightThreadedBinaryTree(binary_tree.BinaryTree):
         if self.root is None:
             self.root = node
         else:
-
             temp = self.root
 
             while temp:
@@ -480,7 +479,6 @@ class LeftThreadedBinaryTree(binary_tree.BinaryTree):
         if self.root is None:
             self.root = node
         else:
-
             temp = self.root
 
             while temp:
@@ -814,7 +812,6 @@ class DoubleThreadedBinaryTree(binary_tree.BinaryTree):
         if self.root is None:
             self.root = node
         else:
-
             temp = self.root
 
             while temp:
@@ -872,7 +869,6 @@ class DoubleThreadedBinaryTree(binary_tree.BinaryTree):
             elif (
                 deleting_node.leftThread or deleting_node.left is None
             ) and deleting_node.rightThread is False:
-
                 successor = self.get_successor(node=deleting_node)
                 if successor:
                     successor.left = deleting_node.left
@@ -884,7 +880,6 @@ class DoubleThreadedBinaryTree(binary_tree.BinaryTree):
             elif (
                 deleting_node.rightThread or deleting_node.right is None
             ) and deleting_node.leftThread is False:
-
                 predecessor = self.get_predecessor(node=deleting_node)
                 if predecessor:
                     predecessor.right = deleting_node.right
@@ -1082,14 +1077,11 @@ class DoubleThreadedBinaryTree(binary_tree.BinaryTree):
             deleting_node.parent.left = replacing_node
 
             if replacing_node:
-
                 if deleting_node.leftThread:
-
                     if replacing_node.leftThread:
                         replacing_node.left = deleting_node.left
 
                 if deleting_node.rightThread:
-
                     if replacing_node.rightThread:
                         replacing_node.right = replacing_node.right
 
@@ -1101,14 +1093,11 @@ class DoubleThreadedBinaryTree(binary_tree.BinaryTree):
             deleting_node.parent.right = replacing_node
 
             if replacing_node:
-
                 if deleting_node.leftThread:
-
                     if replacing_node.leftThread:
                         replacing_node.left = deleting_node.left
 
                 if deleting_node.rightThread:
-
                     if replacing_node.rightThread:
                         replacing_node.right = replacing_node.right
 

@@ -20,4 +20,4 @@ repository = "https://github.com/shunsvineyard/python-sample-code"
 
 
 [project.scripts]
-tree-cli = "strees.bin.tree_cli:main"
+tree-cli = "trees.bin.tree_cli:main"

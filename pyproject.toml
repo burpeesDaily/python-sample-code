@@ -2,7 +2,7 @@
 name = "python-sample-code"
 version = "0.0.1"
 authors = [
-    { name="Shun Huang", email="zsh@shunsvineyard.info" }
+    { name="Shun Huang", email="shun@formosa1544.com" }
 ]
 description = "The Python sample project is a Binary Tree Library"
 readme = {file = "README.rst", content-type = "text/x-rst"}
@@ -16,7 +16,7 @@ keywords = ["sphinx"]
 
 
 [project.urls]
-repository = "https://github.com/shunsvineyard/python-sample-code"
+repository = "https://github.com/burpeesDaily/python-sample-code"
 
 
 [project.scripts]

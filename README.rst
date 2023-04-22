@@ -1,20 +1,20 @@
 Sample Binary Tree Library
 ##########################
 
-.. image:: https://github.com/shunsvineyard/python-sample-code/workflows/Test/badge.svg
-    :target: https://github.com/shunsvineyard/python-sample-code/actions?query=workflow%3ATest
+.. image:: https://github.com/burpeesDaily/python-sample-code/actions/workflows/testing.yml/badge.svg
+    :target: https://github.com/burpeesDaily/python-sample-code/actions/workflows/testing.yml
 
-.. image:: https://github.com/shunsvineyard/python-sample-code/workflows/Linting/badge.svg 
-    :target: https://github.com/shunsvineyard/python-sample-code/actions?query=workflow%3ALinting
+.. image:: https://github.com/burpeesDaily/python-sample-code/actions/workflows/linting.yml/badge.svg
+    :target: https://github.com/burpeesDaily/python-sample-code/actions/workflows/linting.yml
 
-.. image:: https://codecov.io/gh/shunsvineyard/python-sample-code/branch/main/graph/badge.svg?token=zLkKU6p7do
-    :target: https://codecov.io/gh/shunsvineyard/python-sample-code
+.. image:: https://codecov.io/gh/burpeesDaily/python-sample-code/branch/main/graph/badge.svg?token=HC1BNJ7W8L 
+    :target: https://codecov.io/gh/burpeesDaily/python-sample-code
     
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
 
 
-The **Binary Tree Library** is a Python sample project used by shunsvineyard.info. It is an example for `Sphinx <https://www.sphinx-doc.org/>`_ and `My Python Coding Style <https://www.formosa1544.com/2019/01/05/my-python-coding-style-and-principles/>`_.
+The **Binary Tree Library** is a Python sample project used by formosa1544.com. It is an example for `Sphinx <https://www.sphinx-doc.org/>`_ and `My Python Coding Style <https://www.formosa1544.com/2019/01/05/my-python-coding-style-and-principles/>`_.
 
 Although it is a sample project, the **Binary Tree Library** is a usable tree data structure library, and has the following tree data structures:
 
@@ -44,7 +44,7 @@ Install from Github
 
 .. code-block:: text
 
-    git clone https://github.com/shunsvineyard/python-sample-code.git
+    git clone https://github.com/burpeesDaily/python-sample-code.git
     cd python-sample-code
     pip install .
 

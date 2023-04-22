@@ -14,7 +14,7 @@ Sample Binary Tree Library
     :target: https://github.com/psf/black
 
 
-The **Binary Tree Library** is a Python sample project used by shunsvineyard.info. It is an example for `Sphinx <https://www.sphinx-doc.org/>`_ and `My Python Coding Style <https://shunsvineyard.info/2019/01/05/my-python-coding-style-and-principles/>`_.
+The **Binary Tree Library** is a Python sample project used by shunsvineyard.info. It is an example for `Sphinx <https://www.sphinx-doc.org/>`_ and `My Python Coding Style <https://www.formosa1544.com/2019/01/05/my-python-coding-style-and-principles/>`_.
 
 Although it is a sample project, the **Binary Tree Library** is a usable tree data structure library, and has the following tree data structures:
 

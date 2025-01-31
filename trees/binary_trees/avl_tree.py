@@ -5,10 +5,9 @@
 """AVL Tree."""
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any, Optional, override
 
 from trees import tree_exceptions
-
 from trees.binary_trees import binary_tree
 
 
@@ -84,7 +83,7 @@ class AVLTree(binary_tree.BinaryTree):
     def __init__(self):
         binary_tree.BinaryTree.__init__(self)
 
-    # Override
+    @override
     def search(self, key: Any) -> AVLNode:
         """Look for an AVL node by a given key.
 
@@ -103,7 +102,7 @@ class AVLTree(binary_tree.BinaryTree):
                 return current  # type: ignore
         raise tree_exceptions.KeyNotFoundError(key=key)
 
-    # Override
+    @override
     def insert(self, key: Any, data: Any):
         """Insert a (key, data) pair into the AVL tree.
 
@@ -140,7 +139,7 @@ class AVLTree(binary_tree.BinaryTree):
             if not (parent.left and parent.right):
                 self._insert_fixup(new_node)
 
-    # Override
+    @override
     def delete(self, key: Any):
         """Delete the node by the given key.
 
@@ -168,7 +167,7 @@ class AVLTree(binary_tree.BinaryTree):
             else:
                 self._delete_one_child(deleting_node=deleting_node)
 
-    # Override
+    @override
     def get_leftmost(self, node: AVLNode) -> AVLNode:
         """Return the leftmost node from a given subtree.
 
@@ -181,7 +180,7 @@ class AVLTree(binary_tree.BinaryTree):
             current_node = current_node.left
         return current_node
 
-    # Override
+    @override
     def get_rightmost(self, node: AVLNode) -> AVLNode:
         """Return the rightmost node from a given subtree.
 
@@ -195,7 +194,7 @@ class AVLTree(binary_tree.BinaryTree):
                 current_node = current_node.right
         return current_node
 
-    # Override
+    @override
     def get_successor(self, node: AVLNode) -> Optional[AVLNode]:
         """Return the successor node in the in-order order.
 
@@ -211,7 +210,7 @@ class AVLTree(binary_tree.BinaryTree):
             parent = parent.parent
         return parent
 
-    # Override
+    @override
     def get_predecessor(self, node: AVLNode) -> Optional[AVLNode]:
         """Return the predecessor node in the in-order order.
 
@@ -227,7 +226,7 @@ class AVLTree(binary_tree.BinaryTree):
             parent = parent.parent
         return parent
 
-    # Override
+    @override
     def get_height(self, node: Optional[AVLNode]) -> int:
         """Return the height of the given node.
 

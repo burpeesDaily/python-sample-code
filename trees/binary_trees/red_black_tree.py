@@ -7,10 +7,9 @@
 import enum
 
 from dataclasses import dataclass
-from typing import Any, Union
+from typing import Any, Union, override
 
 from trees import tree_exceptions
-
 from trees.binary_trees import binary_tree
 
 
@@ -117,7 +116,7 @@ class RBTree(binary_tree.BinaryTree):
         self._NIL: LeafNode = LeafNode(key=None, data=None)
         self.root: Union[RBNode, LeafNode] = self._NIL
 
-    # Override
+    @override
     def search(self, key: Any) -> RBNode:
         """Look for a node by a given key.
 
@@ -135,7 +134,7 @@ class RBTree(binary_tree.BinaryTree):
                 return temp
         raise tree_exceptions.KeyNotFoundError(key=key)
 
-    # Override
+    @override
     def insert(self, key: Any, data: Any):
         """Insert a (key, data) pair into the Red-Black tree.
 
@@ -174,7 +173,7 @@ class RBTree(binary_tree.BinaryTree):
             # After the insertion, fix the broken red-black-tree-properties.
             self._insert_fixup(node)
 
-    # Override
+    @override
     def delete(self, key: Any):
         """Delete the node by the given key.
 
@@ -223,7 +222,7 @@ class RBTree(binary_tree.BinaryTree):
                 if isinstance(replacing_replacement, RBNode):
                     self._delete_fixup(fixing_node=replacing_replacement)
 
-    # Override
+    @override
     def get_leftmost(self, node: RBNode) -> RBNode:
         """Return the leftmost node from a given subtree.
 
@@ -236,7 +235,7 @@ class RBTree(binary_tree.BinaryTree):
             current_node = current_node.left
         return current_node
 
-    # Override
+    @override
     def get_rightmost(self, node: RBNode) -> RBNode:
         """Return the rightmost node from a given subtree.
 
@@ -249,7 +248,7 @@ class RBTree(binary_tree.BinaryTree):
             current_node = current_node.right
         return current_node
 
-    # Override
+    @override
     def get_successor(self, node: RBNode) -> Union[RBNode, LeafNode]:
         """Return the successor node in the in-order order.
 
@@ -265,7 +264,7 @@ class RBTree(binary_tree.BinaryTree):
             parent = parent.parent
         return parent
 
-    # Override
+    @override
     def get_predecessor(self, node: RBNode) -> Union[RBNode, LeafNode]:
         """Return the predecessor node in the in-order order.
 
@@ -281,7 +280,7 @@ class RBTree(binary_tree.BinaryTree):
             parent = parent.parent
         return node.parent
 
-    # Override
+    @override
     def get_height(self, node: Union[None, LeafNode, RBNode]) -> int:
         """Return the height of the given node.
 

@@ -5,10 +5,9 @@
 """Threaded Binary Search Trees."""
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any, Optional, override
 
 from trees import tree_exceptions
-
 from trees.binary_trees import binary_tree
 
 
@@ -105,7 +104,7 @@ class RightThreadedBinaryTree(binary_tree.BinaryTree):
     def __init__(self):
         binary_tree.BinaryTree.__init__(self)
 
-    # Override
+    @override
     def search(self, key: Any) -> SingleThreadNode:
         """Look for a node by a given key.
 
@@ -126,7 +125,7 @@ class RightThreadedBinaryTree(binary_tree.BinaryTree):
                     break
         raise tree_exceptions.KeyNotFoundError(key=key)
 
-    # Override
+    @override
     def insert(self, key: Any, data: Any):
         """Insert a (key, data) pair into the right threaded binary tree.
 
@@ -167,7 +166,7 @@ class RightThreadedBinaryTree(binary_tree.BinaryTree):
                 else:
                     raise tree_exceptions.DuplicateKeyError(key=key)
 
-    # Override
+    @override
     def delete(self, key: Any):
         """Delete the node by the given key.
 
@@ -236,7 +235,7 @@ class RightThreadedBinaryTree(binary_tree.BinaryTree):
             else:
                 raise RuntimeError("Invalid case. Should never happened")
 
-    # Override
+    @override
     def get_leftmost(self, node: SingleThreadNode) -> SingleThreadNode:
         """Return the leftmost node from a given subtree.
 
@@ -250,7 +249,7 @@ class RightThreadedBinaryTree(binary_tree.BinaryTree):
             current_node = current_node.left
         return current_node
 
-    # Override
+    @override
     def get_rightmost(self, node: SingleThreadNode) -> SingleThreadNode:
         """Return the rightmost node from a given subtree.
 
@@ -264,7 +263,7 @@ class RightThreadedBinaryTree(binary_tree.BinaryTree):
             current_node = current_node.right
         return current_node
 
-    # Override
+    @override
     def get_successor(self, node: SingleThreadNode) -> Optional[SingleThreadNode]:
         """Return the successor node in the in-order order.
 
@@ -280,7 +279,7 @@ class RightThreadedBinaryTree(binary_tree.BinaryTree):
             # if node.right is None, it means no successor of the given node.
             return None
 
-    # Override
+    @override
     def get_predecessor(self, node: SingleThreadNode) -> Optional[SingleThreadNode]:
         """Return the predecessor node in the in-order order.
 
@@ -296,7 +295,7 @@ class RightThreadedBinaryTree(binary_tree.BinaryTree):
             parent = parent.parent
         return parent
 
-    # Override
+    @override
     def get_height(self, node: Optional[SingleThreadNode]) -> int:
         """Return the height of the given node.
 
@@ -445,7 +444,7 @@ class LeftThreadedBinaryTree(binary_tree.BinaryTree):
     def __init__(self):
         binary_tree.BinaryTree.__init__(self)
 
-    # Override
+    @override
     def search(self, key: Any) -> SingleThreadNode:
         """Look for a node by a given key.
 
@@ -467,7 +466,7 @@ class LeftThreadedBinaryTree(binary_tree.BinaryTree):
                 current = current.right
         raise tree_exceptions.KeyNotFoundError(key=key)
 
-    # Override
+    @override
     def insert(self, key: Any, data: Any):
         """Insert a (key, data) pair into the left threaded binary tree.
 
@@ -508,7 +507,7 @@ class LeftThreadedBinaryTree(binary_tree.BinaryTree):
                 else:
                     raise tree_exceptions.DuplicateKeyError(key=key)
 
-    # Override
+    @override
     def delete(self, key: Any):
         """Delete the node by the given key.
 
@@ -573,7 +572,7 @@ class LeftThreadedBinaryTree(binary_tree.BinaryTree):
             else:
                 raise RuntimeError("Invalid case. Should never happened")
 
-    # Override
+    @override
     def get_leftmost(self, node: SingleThreadNode) -> SingleThreadNode:
         """Return the leftmost node from a given subtree.
 
@@ -587,7 +586,7 @@ class LeftThreadedBinaryTree(binary_tree.BinaryTree):
             current_node = current_node.left
         return current_node
 
-    # Override
+    @override
     def get_rightmost(self, node: SingleThreadNode) -> SingleThreadNode:
         """Return the rightmost node from a given subtree.
 
@@ -602,7 +601,7 @@ class LeftThreadedBinaryTree(binary_tree.BinaryTree):
                 current_node = current_node.right
         return current_node
 
-    # Override
+    @override
     def get_successor(self, node: SingleThreadNode) -> Optional[SingleThreadNode]:
         """Return the successor node in the in-order order.
 
@@ -618,7 +617,7 @@ class LeftThreadedBinaryTree(binary_tree.BinaryTree):
             parent = parent.parent
         return parent
 
-    # Override
+    @override
     def get_predecessor(self, node: SingleThreadNode) -> Optional[SingleThreadNode]:
         """Return the predecessor node in the in-order order.
 
@@ -634,7 +633,7 @@ class LeftThreadedBinaryTree(binary_tree.BinaryTree):
             # if node.left is None, it means no predecessor of the given node.
             return None
 
-    # Override
+    @override
     def get_height(self, node: Optional[SingleThreadNode]) -> int:
         """Return the height of the given node.
 
@@ -776,7 +775,7 @@ class DoubleThreadedBinaryTree(binary_tree.BinaryTree):
     def __init__(self):
         binary_tree.BinaryTree.__init__(self)
 
-    # Override
+    @override
     def search(self, key: Any) -> DoubleThreadNode:
         """Look for a node by a given key.
 
@@ -800,7 +799,7 @@ class DoubleThreadedBinaryTree(binary_tree.BinaryTree):
                     break
         raise tree_exceptions.KeyNotFoundError(key=key)
 
-    # Override
+    @override
     def insert(self, key: Any, data: Any):
         """Insert a (key, data) pair into the double threaded binary tree.
 
@@ -848,7 +847,7 @@ class DoubleThreadedBinaryTree(binary_tree.BinaryTree):
                 else:
                     raise tree_exceptions.DuplicateKeyError(key=key)
 
-    # Override
+    @override
     def delete(self, key: Any):
         """Delete the node by the given key.
 
@@ -926,7 +925,7 @@ class DoubleThreadedBinaryTree(binary_tree.BinaryTree):
             else:
                 raise RuntimeError("Invalid case. Should never happened")
 
-    # Override
+    @override
     def get_leftmost(self, node: DoubleThreadNode) -> DoubleThreadNode:
         """Return the leftmost node from a given subtree.
 
@@ -939,7 +938,7 @@ class DoubleThreadedBinaryTree(binary_tree.BinaryTree):
             current_node = current_node.left
         return current_node
 
-    # Override
+    @override
     def get_rightmost(self, node: DoubleThreadNode) -> DoubleThreadNode:
         """Return the rightmost node from a given subtree.
 
@@ -953,7 +952,7 @@ class DoubleThreadedBinaryTree(binary_tree.BinaryTree):
                 current_node = current_node.right
         return current_node
 
-    # Override
+    @override
     def get_successor(self, node: DoubleThreadNode) -> Optional[DoubleThreadNode]:
         """Return the successor node in the in-order order.
 
@@ -968,7 +967,7 @@ class DoubleThreadedBinaryTree(binary_tree.BinaryTree):
                 return self.get_leftmost(node=node.right)
             return None
 
-    # Override
+    @override
     def get_predecessor(self, node: DoubleThreadNode) -> Optional[DoubleThreadNode]:
         """Return the predecessor node in the in-order order.
 
@@ -983,7 +982,7 @@ class DoubleThreadedBinaryTree(binary_tree.BinaryTree):
                 return self.get_rightmost(node=node.left)
             return None
 
-    # Override
+    @override
     def get_height(self, node: Optional[DoubleThreadNode]) -> int:
         """Return the height of the given node.
 

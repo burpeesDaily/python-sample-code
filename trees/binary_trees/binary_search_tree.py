@@ -4,10 +4,9 @@
 
 """Binary Search Tree."""
 
-from typing import Any, Optional
+from typing import Any, Optional, override
 
 from trees import tree_exceptions
-
 from trees.binary_trees import binary_tree
 
 
@@ -73,7 +72,7 @@ class BinarySearchTree(binary_tree.BinaryTree):
     def __init__(self):
         binary_tree.BinaryTree.__init__(self)
 
-    # Override
+    @override
     def search(self, key: Any) -> binary_tree.Node:
         """Look for a node by a given key.
 
@@ -92,7 +91,7 @@ class BinarySearchTree(binary_tree.BinaryTree):
                 current = current.right
         raise tree_exceptions.KeyNotFoundError(key=key)
 
-    # Override
+    @override
     def insert(self, key: Any, data: Any):
         """Insert a (key, data) pair into the binary search tree.
 
@@ -120,7 +119,7 @@ class BinarySearchTree(binary_tree.BinaryTree):
         else:
             parent.right = new_node
 
-    # Override
+    @override
     def delete(self, key: Any):
         """Delete the node by the given key.
 
@@ -159,7 +158,7 @@ class BinarySearchTree(binary_tree.BinaryTree):
                 replacing_node.left = deleting_node.left
                 replacing_node.left.parent = replacing_node
 
-    # Override
+    @override
     def get_leftmost(self, node: binary_tree.Node) -> binary_tree.Node:
         """Return the leftmost node from a given subtree.
 
@@ -173,7 +172,7 @@ class BinarySearchTree(binary_tree.BinaryTree):
             current_node = current_node.left
         return current_node
 
-    # Override
+    @override
     def get_rightmost(self, node: binary_tree.Node) -> binary_tree.Node:
         """Return the rightmost node from a given subtree.
 
@@ -188,7 +187,7 @@ class BinarySearchTree(binary_tree.BinaryTree):
                 current_node = current_node.right
         return current_node
 
-    # Override
+    @override
     def get_successor(self, node: binary_tree.Node) -> Optional[binary_tree.Node]:
         """Return the successor node in the in-order order.
 
@@ -205,7 +204,7 @@ class BinarySearchTree(binary_tree.BinaryTree):
             parent = parent.parent
         return parent
 
-    # Override
+    @override
     def get_predecessor(self, node: binary_tree.Node) -> Optional[binary_tree.Node]:
         """Return the predecessor node in the in-order order.
 
@@ -222,7 +221,7 @@ class BinarySearchTree(binary_tree.BinaryTree):
             parent = parent.parent
         return parent
 
-    # Override
+    @override
     def get_height(self, node: Optional[binary_tree.Node]) -> int:
         """Return the height of the given node.
 

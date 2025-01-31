@@ -51,7 +51,7 @@ class BinaryTree(abc.ABC, Generic[NodeType]):
     Notes
     -----
     One reason to use abstract base class for all types of binary trees
-    is to make sure the type of binary trees is compatable. Therefore, binary
+    is to make sure the type of binary trees is compatible. Therefore, binary
     tree traversal can be performed on any type of binary trees.
     """
 
@@ -103,7 +103,7 @@ class BinaryTree(abc.ABC, Generic[NodeType]):
         Raises
         ------
         `DuplicateKeyError`
-            Raised if the key to be insted has existed in the tree.
+            Raised if the key to be inserted has existed in the tree.
         """
         raise NotImplementedError()
 

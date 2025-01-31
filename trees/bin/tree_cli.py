@@ -11,8 +11,6 @@ from typing import Optional
 from trees.binary_trees import avl_tree
 from trees.binary_trees import binary_search_tree
 from trees.binary_trees import binary_tree
-from trees.binary_trees import red_black_tree
-from trees.binary_trees import threaded_binary_tree
 from trees.binary_trees import traversal
 
 from trees import tree_exceptions
@@ -48,20 +46,6 @@ class cli(cmd.Cmd):
                 self._tree = avl_tree.AVLTree()
             elif tree_type == "bst":
                 self._tree = binary_search_tree.BinarySearchTree()
-            elif tree_type == "rb-tree":
-                self._tree = red_black_tree.RBTree()
-            elif tree_type == "threaded-bst":
-                threaded_type = input(
-                    "Please input threaded type " "(left, right, or double): "
-                ).lower()
-                if threaded_type == "left":
-                    self._tree = threaded_binary_tree.LeftThreadedBinaryTree()
-                elif threaded_type == "right":
-                    self._tree = threaded_binary_tree.RightThreadedBinaryTree()
-                elif threaded_type == "double":
-                    self._tree = threaded_binary_tree.DoubleThreadedBinaryTree()
-                else:
-                    print(f"{threaded_type} is an invalid threaded type")
             else:
                 print(f"{tree_type} is an invalid tree type")
         except KeyError as error:
@@ -131,56 +115,20 @@ class cli(cmd.Cmd):
         """
         try:
             arg = self._get_single_arg(line=line).lower()
-
-            if isinstance(self._tree, red_black_tree.RBTree):
-                if arg == "pre":
-                    for item in self._tree.preorder_traverse():
-                        print(item)
-                elif arg == "in":
-                    for item in self._tree.inorder_traverse():
-                        print(item)
-                elif arg == "post":
-                    for item in self._tree.postorder_traverse():
-                        print(item)
+            if arg == "pre":
+                for item in traversal.preorder_traverse(tree=self._tree):
+                    print(item)
+            elif arg == "in":
+                for item in traversal.inorder_traverse(tree=self._tree):
+                    print(item)
+            elif arg == "post":
+                for item in traversal.postorder_traverse(tree=self._tree):
+                    print(item)
+            elif arg == "rev-in":
+                for item in traversal.reverse_inorder_traverse(tree=self._tree):
+                    print(item)
             else:
-                if arg == "pre":
-                    if isinstance(
-                        self._tree, threaded_binary_tree.RightThreadedBinaryTree
-                    ) or isinstance(
-                        self._tree, threaded_binary_tree.DoubleThreadedBinaryTree
-                    ):
-                        for item in self._tree.preorder_traverse():
-                            print(item)
-                    else:
-                        for item in traversal.preorder_traverse(tree=self._tree):
-                            print(item)
-                elif arg == "in":
-                    if isinstance(
-                        self._tree, threaded_binary_tree.RightThreadedBinaryTree
-                    ) or isinstance(
-                        self._tree, threaded_binary_tree.DoubleThreadedBinaryTree
-                    ):
-                        for item in self._tree.inorder_traverse():
-                            print(item)
-                    else:
-                        for item in traversal.inorder_traverse(tree=self._tree):
-                            print(item)
-                elif arg == "post":
-                    for item in traversal.postorder_traverse(tree=self._tree):
-                        print(item)
-                elif arg == "rev-in":
-                    if isinstance(
-                        self._tree, threaded_binary_tree.LeftThreadedBinaryTree
-                    ) or isinstance(
-                        self._tree, threaded_binary_tree.DoubleThreadedBinaryTree
-                    ):
-                        for item in self._tree.reverse_inorder_traverse():
-                            print(item)
-                    else:
-                        for item in traversal.reverse_inorder_traverse(tree=self._tree):
-                            print(item)
-                else:
-                    print(f"{arg} is an invalid traversal type")
+                print(f"{arg} is an invalid traversal type")
         except KeyError as error:
             print(error)
 

@@ -4,7 +4,7 @@ version = "0.0.2"
 authors = [
     { name="Shun Huang", email="shun@formosa1544.com" }
 ]
-description = "The Python sample project is a Binary Tree Library"
+description = "A Python Sample Library"
 readme = {file = "README.rst", content-type = "text/x-rst"}
 requires-python = ">=3.13"
 license = {text = "MIT License"}

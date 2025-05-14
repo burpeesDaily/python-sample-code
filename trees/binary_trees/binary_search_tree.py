@@ -42,8 +42,6 @@ class BinarySearchTree:
         Delete a node based on the given key from the binary tree.
     get_leftmost(node: `Node`)
         Return the node whose key is the smallest from the given subtree.
-    get_rightmost(node: `Node` = `None`)
-        Return the node whose key is the biggest from the given subtree.
     get_height(node: `Optional[Node]`)
         Return the height of the given node.
 
@@ -66,10 +64,6 @@ class BinarySearchTree:
     1
     >>> tree.get_leftmost().data
     '1'
-    >>> tree.get_rightmost().key
-    34
-    >>> tree.get_rightmost().data
-    "34"
     >>> tree.get_height(tree.root)
     4
     >>> tree.search(24).data
@@ -128,7 +122,7 @@ class BinarySearchTree:
                 current = current.right
         raise tree_exceptions.KeyNotFoundError(key=key)
 
-    def insert(self, key: Any, data: Any):
+    def insert(self, key: Any, data: Any) -> None:
         """Insert a (key, data) pair into the binary search tree.
 
         Parameters
@@ -164,7 +158,7 @@ class BinarySearchTree:
         else:
             parent.right = new_node
 
-    def delete(self, key: Any):
+    def delete(self, key: Any) -> None:
         """Delete the node by the given key.
 
         Parameters
@@ -229,28 +223,6 @@ class BinarySearchTree:
             current_node = current_node.left
         return current_node
 
-    def get_rightmost(self, node: Node) -> Node:
-        """Return the rightmost node from a given subtree.
-
-        The key of the rightmost node is the biggest key in the given subtree.
-
-        Parameters
-        ----------
-        node: `Node`
-            The root of the subtree.
-
-        Returns
-        -------
-        `Node`
-            The node whose key is the biggest from the subtree of the given node.
-        """
-        current_node = node
-
-        if current_node:
-            while current_node.right:
-                current_node = current_node.right
-        return current_node
-
     def get_height(self, node: Optional[Node]) -> int:
         """Return the height of the given node.
 
@@ -276,7 +248,7 @@ class BinarySearchTree:
         self,
         deleting_node: Node,
         replacing_node: Optional[Node],
-    ):
+    ) -> None:
         if deleting_node.parent is None:
             self.root = replacing_node
         elif deleting_node == deleting_node.parent.left:

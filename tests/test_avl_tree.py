@@ -18,8 +18,6 @@ def test_simple_case(basic_tree):
 
     assert tree.get_leftmost(tree.root).key == 1
     assert tree.get_leftmost(tree.root).data == "1"
-    assert tree.get_rightmost(tree.root).key == 34
-    assert tree.get_rightmost(tree.root).data == "34"
     assert tree.search(24).key == 24
     assert tree.search(24).data == "24"
 

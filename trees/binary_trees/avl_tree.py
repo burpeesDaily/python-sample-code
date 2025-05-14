@@ -4,24 +4,25 @@
 
 """AVL Tree."""
 
-from dataclasses import dataclass
-from typing import Any, Optional, override
+import dataclasses
 
+from typing import Any, Optional
 from trees import tree_exceptions
-from trees.binary_trees import binary_tree
 
 
-@dataclass
-class AVLNode(binary_tree.Node):
+@dataclasses.dataclass
+class AVLNode:
     """AVL Tree node definition."""
 
+    key: Any
+    data: Any
     left: Optional["AVLNode"] = None
     right: Optional["AVLNode"] = None
     parent: Optional["AVLNode"] = None
     height: int = 0
 
 
-class AVLTree(binary_tree.BinaryTree):
+class AVLTree:
     """AVL Tree.
 
     Attributes
@@ -41,12 +42,6 @@ class AVLTree(binary_tree.BinaryTree):
         Delete a node based on the given key from the binary tree.
     get_leftmost(node: `AVLNode`)
         Return the node whose key is the smallest from the given subtree.
-    get_rightmost(node: `AVLNode`)
-        Return the node whose key is the biggest from the given subtree.
-    get_successor(node: `AVLNode`)
-        Return the successor node in the in-order order.
-    get_predecessor(node: `AVLNode`)
-        Return the predecessor node in the in-order order.
     get_height(node: `Optional[AVLNode]`)
         Return the height of the given node.
 
@@ -69,10 +64,6 @@ class AVLTree(binary_tree.BinaryTree):
     1
     >>> tree.get_leftmost().data
     '1'
-    >>> tree.get_rightmost().key
-    34
-    >>> tree.get_rightmost().data
-    "34"
     >>> tree.get_height(tree.root)
     4
     >>> tree.search(24).data
@@ -80,16 +71,45 @@ class AVLTree(binary_tree.BinaryTree):
     >>> tree.delete(15)
     """
 
-    def __init__(self):
-        binary_tree.BinaryTree.__init__(self)
+    def __init__(self) -> None:
+        self.root: Optional[AVLNode] = None
 
-    @override
+    def __repr__(self):
+        """Return the tree representation to visualize its layout."""
+        return (
+            f"{type(self)}, root={self.root}, "
+            f"tree_height={str(self.get_height(self.root))}"
+        )
+
+    @property
+    def empty(self) -> bool:
+        """bool: `True` if the tree is empty; `False` otherwise.
+
+        Notes
+        -----
+        The property, `empty`, is read-only.
+        """
+        if isinstance(self.root, AVLNode):
+            return False
+        return True
+
     def search(self, key: Any) -> AVLNode:
         """Look for an AVL node by a given key.
 
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.search`.
+        Parameters
+        ----------
+        key: `Any`
+            The key associated with the data.
+
+        Returns
+        -------
+        `AVLNode`
+            The node found by the given key.
+
+        Raises
+        ------
+        `KeyNotFoundError`
+            Raised if the key does not exist.
         """
         current = self.root
 
@@ -102,13 +122,21 @@ class AVLTree(binary_tree.BinaryTree):
                 return current  # type: ignore
         raise tree_exceptions.KeyNotFoundError(key=key)
 
-    @override
-    def insert(self, key: Any, data: Any):
+    def insert(self, key: Any, data: Any) -> None:
         """Insert a (key, data) pair into the AVL tree.
 
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.insert`.
+        Parameters
+        ----------
+        key: `Any`
+            The key associated with the data.
+
+        data: `Any`
+            The data to be inserted.
+
+        Raises
+        ------
+        `DuplicateKeyError`
+            Raised if the key to be inserted has existed in the tree.
         """
         new_node = AVLNode(key=key, data=data)
         parent: Optional[AVLNode] = None
@@ -139,13 +167,18 @@ class AVLTree(binary_tree.BinaryTree):
             if not (parent.left and parent.right):
                 self._insert_fixup(new_node)
 
-    @override
-    def delete(self, key: Any):
+    def delete(self, key: Any) -> None:
         """Delete the node by the given key.
 
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.delete`.
+        Parameters
+        ----------
+        key: `Any`
+            The key of the node to be deleted.
+
+        Raises
+        ------
+        `KeyNotFoundError`
+            Raised if the key does not exist.
         """
         deleting_node = self.search(key=key)
         if self.root and deleting_node:
@@ -167,72 +200,39 @@ class AVLTree(binary_tree.BinaryTree):
             else:
                 self._delete_one_child(deleting_node=deleting_node)
 
-    @override
     def get_leftmost(self, node: AVLNode) -> AVLNode:
         """Return the leftmost node from a given subtree.
 
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.get_leftmost`.
+        The key of the leftmost node is the smallest key in the given subtree.
+
+        Parameters
+        ----------
+        node: `NodeType`
+            The root of the subtree.
+
+        Returns
+        -------
+        `NodeType`
+            The node whose key is the smallest from the subtree of
+            the given node.
         """
         current_node = node
         while current_node.left:
             current_node = current_node.left
         return current_node
 
-    @override
-    def get_rightmost(self, node: AVLNode) -> AVLNode:
-        """Return the rightmost node from a given subtree.
-
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.get_rightmost`.
-        """
-        current_node = node
-        if current_node:
-            while current_node.right:
-                current_node = current_node.right
-        return current_node
-
-    @override
-    def get_successor(self, node: AVLNode) -> Optional[AVLNode]:
-        """Return the successor node in the in-order order.
-
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.get_successor`.
-        """
-        if node.right:
-            return self.get_leftmost(node=node.right)
-        parent = node.parent
-        while parent and node == parent.right:
-            node = parent
-            parent = parent.parent
-        return parent
-
-    @override
-    def get_predecessor(self, node: AVLNode) -> Optional[AVLNode]:
-        """Return the predecessor node in the in-order order.
-
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.get_predecessor`.
-        """
-        if node.left:
-            return self.get_rightmost(node=node.left)
-        parent = node.parent
-        while parent and node == parent.left:
-            node = parent
-            parent = parent.parent
-        return parent
-
-    @override
     def get_height(self, node: Optional[AVLNode]) -> int:
         """Return the height of the given node.
 
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.get_height`.
+        Parameters
+        ----------
+        node: `NodeType`
+            The node to get its height.
+
+        Returns
+        -------
+        `int`
+            The height of the given node.
         """
         if node:
             return node.height

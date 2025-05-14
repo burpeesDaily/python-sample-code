@@ -1,5 +1,5 @@
-Sample Binary Tree Library
-==========================
+Binary Tree Library
+===================
 
 .. image:: https://github.com/burpeesDaily/python-sample-code/actions/workflows/testing.yml/badge.svg
     :target: https://github.com/burpeesDaily/python-sample-code/actions/workflows/testing.yml
@@ -14,7 +14,7 @@ Sample Binary Tree Library
     :target: https://github.com/psf/black
 
 
-The **Binary Tree Library** is a Python sample project used by formosa1544.com. It is an example for `Sphinx <https://www.sphinx-doc.org/>`_ and `My Python Coding Style <https://www.formosa1544.com/2019/01/05/my-python-coding-style-and-principles/>`_.
+The **Binary Tree Library** is an example for demonstrating how to use `Sphinx <https://www.sphinx-doc.org/>`_.
 
 Although it is a sample project, the **Binary Tree Library** is a usable tree data structure library, and has the following tree data structures:
 
@@ -82,6 +82,7 @@ Examples
         contacts["Mark"] = "mark@email.com"
         contacts["John"] = "john@email.com"
         contacts["Luke"] = "luke@email.com"
+        contacts["Matthew"] = "matthew@email.com"
         contacts["john"] = "john@email.com"
 
         # Iterate the items.
@@ -96,26 +97,3 @@ Examples
             print(contacts["john"])
         except tree_exceptions.KeyNotFoundError:
             print("john does not exist")
-
-
-Tree CLI
---------
-
-The **Binary Tree Library** provides a command line tool to simulate tree data structures.
-
-.. code-block:: text
-
-    tree-cli
-
-It will show the interactive prompt. Use ``help`` to list all the available commands
-
-
-.. code-block:: text
-
-    Welcome to the Tree CLI. Type help or ? to list commands.
-
-    tree> help
-
-    Documented commands (type help <topic>):
-    ========================================
-    build  delete  destroy  detail  exit  help  insert  search  traverse

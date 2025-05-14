@@ -1,5 +1,5 @@
 Sample Binary Tree Library
-##########################
+==========================
 
 .. image:: https://github.com/burpeesDaily/python-sample-code/actions/workflows/testing.yml/badge.svg
     :target: https://github.com/burpeesDaily/python-sample-code/actions/workflows/testing.yml
@@ -20,8 +20,6 @@ Although it is a sample project, the **Binary Tree Library** is a usable tree da
 
 - AVL Tree
 - Binary Search Tree
-- Red Black Tree
-- Threaded Binary Trees
 
 The library also provides the tree traversal feature to traverse binary trees.
 

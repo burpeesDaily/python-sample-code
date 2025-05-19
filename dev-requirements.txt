@@ -5,6 +5,7 @@ pydocstyle
 pytest
 pytest-cov
 sphinx
+sphinx-rtd-theme
 
 # Install the following packages in development mode
 -e .

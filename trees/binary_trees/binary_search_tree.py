@@ -1,23 +1,34 @@
-# Copyright © 2021 by Shun Huang. All rights reserved.
+# Copyright © 2021, 2025 by Shun Huang. All rights reserved.
 # Licensed under MIT License.
 # See LICENSE in the project root for license information.
 
 """Binary Search Tree."""
 
+import dataclasses
+
 from typing import Any, Optional
 
 from trees import tree_exceptions
 
-from trees.binary_trees import binary_tree
+
+@dataclasses.dataclass
+class Node:
+    """Binary tree node definition."""
+
+    key: Any
+    data: Any
+    left: Optional["Node"] = None
+    right: Optional["Node"] = None
+    parent: Optional["Node"] = None
 
 
-class BinarySearchTree(binary_tree.BinaryTree):
+class BinarySearchTree:
     """Binary Search Tree.
 
     Attributes
     ----------
     root: `Optional[Node]`
-        The root node of the binary search tree.
+        The root of the binary search tree.
     empty: `bool`
         `True` if the tree is empty; `False` otherwise.
 
@@ -31,12 +42,6 @@ class BinarySearchTree(binary_tree.BinaryTree):
         Delete a node based on the given key from the binary tree.
     get_leftmost(node: `Node`)
         Return the node whose key is the smallest from the given subtree.
-    get_rightmost(node: `Node` = `None`)
-        Return the node whose key is the biggest from the given subtree.
-    get_successor(node: `Node`)
-        Return the successor node in the in-order order.
-    get_predecessor(node: `Node`)
-        Return the predecessor node in the in-order order.
     get_height(node: `Optional[Node]`)
         Return the height of the given node.
 
@@ -59,10 +64,6 @@ class BinarySearchTree(binary_tree.BinaryTree):
     1
     >>> tree.get_leftmost().data
     '1'
-    >>> tree.get_rightmost().key
-    34
-    >>> tree.get_rightmost().data
-    "34"
     >>> tree.get_height(tree.root)
     4
     >>> tree.search(24).data
@@ -70,37 +71,74 @@ class BinarySearchTree(binary_tree.BinaryTree):
     >>> tree.delete(15)
     """
 
-    def __init__(self):
-        binary_tree.BinaryTree.__init__(self)
+    def __init__(self) -> None:
+        self.root: Optional[Node] = None
 
-    # Override
-    def search(self, key: Any) -> binary_tree.Node:
+    def __repr__(self):
+        """Return the tree representation to visualize its layout."""
+        return (
+            f"{type(self)}, root={self.root}, "
+            f"tree_height={str(self.get_height(self.root))}"
+        )
+
+    @property
+    def empty(self) -> bool:
+        """bool: `True` if the tree is empty; `False` otherwise.
+
+        Notes
+        -----
+        The property, `empty`, is read-only.
+        """
+        if isinstance(self.root, Node):
+            return False
+        return True
+
+    def search(self, key: Any) -> Node:
         """Look for a node by a given key.
 
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.search`.
+        Parameters
+        ----------
+        key: `Any`
+            The key associated with the data.
+
+        Returns
+        -------
+        `Node`
+            The node found by the given key.
+
+        Raises
+        ------
+        `KeyNotFoundError`
+            Raised if the key does not exist.
         """
         current = self.root
 
         while current:
             if key == current.key:
-                return current  # type: ignore
+                return current
             elif key < current.key:
                 current = current.left
             else:  # key > current.key:
                 current = current.right
         raise tree_exceptions.KeyNotFoundError(key=key)
 
-    # Override
-    def insert(self, key: Any, data: Any):
+    def insert(self, key: Any, data: Any) -> None:
         """Insert a (key, data) pair into the binary search tree.
 
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.insert`.
+        Parameters
+        ----------
+        key: `Any`
+            The key associated with the data.
+
+        data: `Any`
+            The data to be inserted.
+
+        Raises
+        ------
+        `DuplicateKeyError`
+            Raised if the key to be inserted has existed in the tree.
         """
-        new_node = binary_tree.Node(key=key, data=data)
+        new_node = Node(key=key, data=data)
         parent = None
         current = self.root
         while current:
@@ -120,13 +158,18 @@ class BinarySearchTree(binary_tree.BinaryTree):
         else:
             parent.right = new_node
 
-    # Override
-    def delete(self, key: Any):
+    def delete(self, key: Any) -> None:
         """Delete the node by the given key.
 
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.delete`.
+        Parameters
+        ----------
+        key: `Any`
+            The key of the node to be deleted.
+
+        Raises
+        ------
+        `KeyNotFoundError`
+            Raised if the key does not exist.
         """
         if self.root:
             deleting_node = self.search(key=key)
@@ -159,13 +202,20 @@ class BinarySearchTree(binary_tree.BinaryTree):
                 replacing_node.left = deleting_node.left
                 replacing_node.left.parent = replacing_node
 
-    # Override
-    def get_leftmost(self, node: binary_tree.Node) -> binary_tree.Node:
+    def get_leftmost(self, node: Node) -> Node:
         """Return the leftmost node from a given subtree.
 
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.get_leftmost`.
+        The key of the leftmost node is the smallest key in the given subtree.
+
+        Parameters
+        ----------
+        node: `Node`
+            The root of the subtree.
+
+        Returns
+        -------
+        `Node`
+            The node whose key is the smallest from the subtree of the given node.
         """
         current_node = node
 
@@ -173,62 +223,18 @@ class BinarySearchTree(binary_tree.BinaryTree):
             current_node = current_node.left
         return current_node
 
-    # Override
-    def get_rightmost(self, node: binary_tree.Node) -> binary_tree.Node:
-        """Return the rightmost node from a given subtree.
-
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.get_rightmost`.
-        """
-        current_node = node
-
-        if current_node:
-            while current_node.right:
-                current_node = current_node.right
-        return current_node
-
-    # Override
-    def get_successor(self, node: binary_tree.Node) -> Optional[binary_tree.Node]:
-        """Return the successor node in the in-order order.
-
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.get_successor`.
-        """
-        if node.right:  # Case 1: Right child is not empty
-            return self.get_leftmost(node=node.right)
-        # Case 2: Right child is empty
-        parent = node.parent
-        while parent and node == parent.right:
-            node = parent
-            parent = parent.parent
-        return parent
-
-    # Override
-    def get_predecessor(self, node: binary_tree.Node) -> Optional[binary_tree.Node]:
-        """Return the predecessor node in the in-order order.
-
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.get_predecessor`.
-        """
-        if node.left:  # Case 1: Left child is not empty
-            return self.get_rightmost(node=node.left)
-        # Case 2: Left child is empty
-        parent = node.parent
-        while parent and node == parent.left:
-            node = parent
-            parent = parent.parent
-        return parent
-
-    # Override
-    def get_height(self, node: Optional[binary_tree.Node]) -> int:
+    def get_height(self, node: Optional[Node]) -> int:
         """Return the height of the given node.
 
-        See Also
-        --------
-        :py:meth:`trees.binary_trees.binary_tree.BinaryTree.get_height`.
+        Parameters
+        ----------
+        node: `Node`
+            The node to get its height.
+
+        Returns
+        -------
+        `int`
+            The height of the given node.
         """
         if node is None:
             return 0
@@ -240,9 +246,9 @@ class BinarySearchTree(binary_tree.BinaryTree):
 
     def _transplant(
         self,
-        deleting_node: binary_tree.Node,
-        replacing_node: Optional[binary_tree.Node],
-    ):
+        deleting_node: Node,
+        replacing_node: Optional[Node],
+    ) -> None:
         if deleting_node.parent is None:
             self.root = replacing_node
         elif deleting_node == deleting_node.parent.left:

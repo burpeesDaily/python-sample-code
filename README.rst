@@ -14,9 +14,9 @@ Binary Tree Library
     :target: https://github.com/psf/black
 
 
-The **Binary Tree Library** is an example for demonstrating how to use `Sphinx <https://www.sphinx-doc.org/>`_.
+The **Binary Tree Library** is an example of using `Sphinx <https://www.sphinx-doc.org/>`_ to generate a document.
 
-Although it is a sample project, the **Binary Tree Library** is a usable tree data structure library, and has the following tree data structures:
+The library has the following tree data structures:
 
 - AVL Tree
 - Binary Search Tree
@@ -33,14 +33,14 @@ The library also provides the tree traversal feature to traverse binary trees.
 Requirements
 ------------
 
-The **Binary Tree Library** requires Python 3.9 or newer.
+The **Binary Tree Library** requires Python 3.13 or newer.
 
 Installation
 ------------
 
 Install from Github
 
-.. code-block:: text
+.. code-block:: bash
 
     git clone https://github.com/burpeesDaily/python-sample-code.git
     cd python-sample-code

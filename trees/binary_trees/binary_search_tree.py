@@ -2,8 +2,6 @@
 # Licensed under MIT License.
 # See LICENSE in the project root for license information.
 
-"""Binary Search Tree."""
-
 import dataclasses
 
 from typing import Any, Optional
@@ -13,7 +11,7 @@ from trees import tree_exceptions
 
 @dataclasses.dataclass
 class Node:
-    """Binary tree node definition."""
+    """Node of Binary Search Tree."""
 
     key: Any
     data: Any
@@ -23,27 +21,7 @@ class Node:
 
 
 class BinarySearchTree:
-    """Binary Search Tree.
-
-    Attributes
-    ----------
-    root: `Optional[Node]`
-        The root of the binary search tree.
-    empty: `bool`
-        `True` if the tree is empty; `False` otherwise.
-
-    Methods
-    -------
-    search(key: `Any`)
-        Look for a node based on the given key.
-    insert(key: `Any`, data: `Any`)
-        Insert a (key, data) pair into a binary tree.
-    delete(key: `Any`)
-        Delete a node based on the given key from the binary tree.
-    get_leftmost(node: `Node`)
-        Return the node whose key is the smallest from the given subtree.
-    get_height(node: `Optional[Node]`)
-        Return the height of the given node.
+    """Binary Search Tree class that supports insertion, deletion, and searching.
 
     Examples
     --------

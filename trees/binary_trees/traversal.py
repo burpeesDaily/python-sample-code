@@ -2,20 +2,6 @@
 # Licensed under MIT License.
 # See LICENSE in the project root for license information.
 
-"""Binary tree traversal.
-
-Routines
---------
-inorder_traverse(tree: `SupportedTreeType`, recursive: `bool`)
-    Perform in-order traversal.
-
-preorder_traverse(tree: `SupportedTreeType`, recursive: `bool`)
-    Perform pre-order traversal.
-
-postorder_traverse(tree: SupportedTreeType, recursive: `bool`)
-    Perform post-order traversal.
-"""
-
 from typing import Any, Iterator, Tuple, Union
 
 from trees.binary_trees import avl_tree

@@ -2,8 +2,6 @@
 # Licensed under MIT License.
 # See LICENSE in the project root for license information.
 
-"""AVL Tree."""
-
 import dataclasses
 
 from typing import Any, Optional
@@ -12,7 +10,7 @@ from trees import tree_exceptions
 
 @dataclasses.dataclass
 class AVLNode:
-    """AVL Tree node definition."""
+    """Definition of AVL Tree Node."""
 
     key: Any
     data: Any
@@ -23,27 +21,7 @@ class AVLNode:
 
 
 class AVLTree:
-    """AVL Tree.
-
-    Attributes
-    ----------
-    root: `Optional[AVLNode]`
-        The root node of the binary search tree.
-    empty: `bool`
-        `True` if the tree is empty; `False` otherwise.
-
-    Methods
-    -------
-    search(key: `Any`)
-        Look for a node based on the given key.
-    insert(key: `Any`, data: `Any`)
-        Insert a (key, data) pair into a binary tree.
-    delete(key: `Any`)
-        Delete a node based on the given key from the binary tree.
-    get_leftmost(node: `AVLNode`)
-        Return the node whose key is the smallest from the given subtree.
-    get_height(node: `Optional[AVLNode]`)
-        Return the height of the given node.
+    """AVL Tree class that support basic operations.
 
     Examples
     --------
@@ -87,7 +65,7 @@ class AVLTree:
 
         Notes
         -----
-        The property, `empty`, is read-only.
+        This property is read-only.
         """
         if isinstance(self.root, AVLNode):
             return False

@@ -23,5 +23,3 @@ Tree exceptions
 
 .. automodule:: trees.tree_exceptions
    :members:
-   :undoc-members:
-   :show-inheritance:

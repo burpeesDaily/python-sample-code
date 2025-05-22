@@ -6,5 +6,3 @@ This module provides some common tree traversal algorithms that visit all the no
 
 .. automodule:: trees.binary_trees.traversal
    :members:
-   :undoc-members:
-   :show-inheritance:

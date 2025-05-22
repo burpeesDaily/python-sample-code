@@ -11,7 +11,7 @@ from trees import tree_exceptions
 
 @dataclasses.dataclass
 class Node:
-    """Node of Binary Search Tree."""
+    """Definition of Binary Search Tree Node."""
 
     key: Any
     data: Any

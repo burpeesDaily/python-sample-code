@@ -8,14 +8,13 @@ from trees.binary_trees import avl_tree
 from trees.binary_trees import binary_search_tree
 
 
+#: An iterator of Key-Value pairs. Yield by traversal functions.
 Pairs = Iterator[Tuple[Any, Any]]
-"""An iterator of Key-Value pairs. Yield by traversal functions."""
 
-
-# Alias for the node types.
+#: Alias for the supported node types.
 SupportedNodeType = Union[None, binary_search_tree.Node, avl_tree.AVLNode]
 
-# Alias for the supported types of binary trees.
+#: Alias for the supported types of binary trees.
 SupportedTreeType = Union[avl_tree.AVLTree, binary_search_tree.BinarySearchTree]
 
 

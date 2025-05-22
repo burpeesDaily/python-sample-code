@@ -6,5 +6,3 @@ Binary search trees (BSTs) are a type of data structure that maintains a sorted 
 
 .. automodule:: trees.binary_trees.binary_search_tree
    :members:
-   :undoc-members:
-   :show-inheritance:

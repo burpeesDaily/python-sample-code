@@ -10,7 +10,7 @@ from trees import tree_exceptions
 
 @dataclasses.dataclass
 class AVLNode:
-    """Node of AVL Tree."""
+    """Definition of AVL Tree Node."""
 
     key: Any
     data: Any

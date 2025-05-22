@@ -6,5 +6,3 @@ AVL trees are a type of self-balancing binary search tree. In an AVL tree, the h
 
 .. automodule:: trees.binary_trees.avl_tree
    :members:
-   :undoc-members:
-   :show-inheritance:
